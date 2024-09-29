@@ -34,7 +34,6 @@ public class TestController {
             return "Hello " + title + " " + name;
         }
     }
-
     @PostMapping("/hello/{name}")
     @ResponseStatus(HttpStatus.CREATED)
     public String helloPost(@PathVariable String name) {
