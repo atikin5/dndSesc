@@ -1,20 +1,3 @@
-/*.background {*/
-/*    position: absolute;*/
-/*    z-index: 1;*/
-/*    left: -10px;*/
-/*    top: -10px;*/
-/*    right: -10px;*/
-/*    bottom: -10px;*/
-/*    filter: blur(1px);*/
-/*    background: url("2560x1600-terrain-wa.jpg");*/
-/*    background-size: cover;*/
-/*}*/
-
-/*.content {*/
-/*     position: relative;*/
-/*     z-index: 2;*/
-/*     color: #fff;*/
-/* }*/
 
 #load-map {
     background-color: #04AA6D;
@@ -56,7 +39,6 @@
 }
 
 body {
-    background-image: url("2560x1600-terrain-wa.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -66,5 +48,30 @@ body {
 
 .tile {
     position: absolute;
+    width: 50px;
+    height: 50px;
+    z-index: 100;
+}
 
+.object {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    z-index: 200;
+    background-size: 50px;
+}
+
+
+.wereeeee {
+    background-image: url("pictures/backgrounds/2560x1600-terrain-wa.jpg");
+}
+
+.block1 {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 50px;
+    top: 50px;
+    border-radius: 50%;
+    background: blue;
 }
