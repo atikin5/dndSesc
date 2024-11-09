@@ -1,4 +1,4 @@
-window.onload = function css() {
+window.onload = function js() {
     const styleSheet = document.styleSheets[0];
 
 
@@ -76,7 +76,7 @@ window.onload = function css() {
                 }
                 if (ind === 0) {
                     let selector = '.' + json.enemies[i].type;
-                    let style = "background-image: url(pictures/characters/" + json.enemies[i].type + ".png)";
+                    let style = "background-image: url(pictures/enemies/" + json.enemies[i].type + ".png)";
                     styleSheet.insertRule(`${selector} { ${style} }`, styleSheet.cssRules.length);
                 }
                 const str1 = `<div class="object ${json.enemies[i].type}" style="left: ${json.enemies[i].absX}px; top: ${json.enemies[i].absY}px;"></div>`
@@ -92,13 +92,13 @@ window.onload = function css() {
                 }
                 if (ind === 0) {
                     let selector = '.' + json.otherObjects[i].type;
-                    let style = "background-image: url(pictures/characters/" + json.otherObjects[i].type + ".png)";
+                    let style = "background-image: url(pictures/otherObjects/" + json.otherObjects[i].type + ".png)";
                     styleSheet.insertRule(`${selector} { ${style} }`, styleSheet.cssRules.length);
                 }
                 const str1 = `<div class="object ${json.otherObjects[i].type}" style="left: ${json.otherObjects[i].absX}px; top: ${json.otherObjects[i].absY}px;"></div>`
                 $("#map").append(str1);
             }
-            console.log("Enemies done");
+            console.log("All objects done");
             addListeners();
         }
         // else {
