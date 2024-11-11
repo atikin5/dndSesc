@@ -5,7 +5,7 @@ window.onload = function js() {
 
 let idIndicator = 0;
 let mouseIndicator = [
-    {"class": "object",  "px": 50},
+    {"class": "object",  "px": 100},
     {"class": "statistic", "px": 1}
 ];
 
@@ -52,7 +52,7 @@ async function loadMap() {
                 let style = "background-image: url(pictures/tiles/" + json.tiles[i].type + ".png)";
                 styleSheet.insertRule(`${selector} { ${style} }`, styleSheet.cssRules.length);
             }
-            const str = `<div class="tile ${json.tiles[i].type}" style="left: ${json.tiles[i].absX}px; top: ${json.tiles[i].absY}px;"></div>`
+            const str = `<div class="tile ${json.tiles[i].type}" style=" background-size: ${mouseIndicator[0].px}px; width: ${mouseIndicator[0].px}px; height: ${mouseIndicator[0].px}px; left: ${json.tiles[i].absX}px; top: ${json.tiles[i].absY}px;"></div>`
             $("#map").append(str);
         }
         console.log("Map done");
@@ -66,7 +66,7 @@ async function loadMap() {
             if (ind === 0) {
                 cssAddRule('.' + json.characters[i].type, "background-image: url(pictures/characters/" + json.characters[i].type + ".png)")
             }
-            const str1 = `<div id="c${i}" class="object ${json.characters[i].type}" style="left: ${json.characters[i].absX}px; top: ${json.characters[i].absY}px;"></div>`
+            const str1 = `<div id="c${i}" class="object ${json.characters[i].type}" style=" background-size: ${mouseIndicator[0].px}px; width: ${mouseIndicator[0].px}px; height: ${mouseIndicator[0].px}px; left: ${json.characters[i].absX}px; top: ${json.characters[i].absY}px;"></div>`
             $("#map").append(str1);
         }
         console.log("Characters done");
@@ -82,7 +82,7 @@ async function loadMap() {
                 let style = "background-image: url(pictures/enemies/" + json.enemies[i].type + ".png)";
                 styleSheet.insertRule(`${selector} { ${style} }`, styleSheet.cssRules.length);
             }
-            const str1 = `<div id="e${i}" class="object ${json.enemies[i].type}" style="left: ${json.enemies[i].absX}px; top: ${json.enemies[i].absY}px;"></div>`
+            const str1 = `<div id="e${i}" class="object ${json.enemies[i].type}" style=" background-size: ${mouseIndicator[0].px}px; width: ${mouseIndicator[0].px}px; height: ${mouseIndicator[0].px}px; left: ${json.enemies[i].absX}px; top: ${json.enemies[i].absY}px;"></div>`
             $("#map").append(str1);
         }
         console.log("Enemies done");
@@ -98,7 +98,7 @@ async function loadMap() {
                 let style = "background-image: url(pictures/otherObjects/" + json.otherObjects[i].type + ".png)";
                 styleSheet.insertRule(`${selector} { ${style} }`, styleSheet.cssRules.length);
             }
-            const str1 = `<div id="o${i}" class="object ${json.otherObjects[i].type}" style="left: ${json.otherObjects[i].absX}px; top: ${json.otherObjects[i].absY}px;"></div>`
+            const str1 = `<div id="o${i}" class="object ${json.otherObjects[i].type}" style="background-size: ${mouseIndicator[0].px}px; width: ${mouseIndicator[0].px}px; height: ${mouseIndicator[0].px}px; left: ${json.otherObjects[i].absX}px; top: ${json.otherObjects[i].absY}px;"></div>`
             $("#map").append(str1);
         }
         console.log("All objects done");
@@ -148,10 +148,14 @@ function statistic(e) {
     if (a[0] === "o") {
         b = "otherObjects";
     }
-    console.log(`shiftClick on ${b}`);
-    const str = `<div id = "s${a}"class="statistic ${b}" style="left: ${e.clientX}px; top: ${e.clientY}px;"><p>ererere</p></div>`;
-    console.log("s" + a);
+    const str = `<div id = "s${a}"class="statistic ${b}" style="left: ${e.clientX}px; top: ${e.clientY}px;"><p>sdjahuiahfwehgiyweghfowahefuwiahfiuwaegofyowiagfoawfgyiwafwa</p><div id="c-b${a}" class="close-button"></div></div>`;
     $("#map").append(str);
+    $(".close-button").on( "click", function(event) {
+        let statId = event.target.id;
+        let objectId = statId.slice(3);
+        $(`#s${objectId}`).remove();
+    });
+
     $(function() {
         $('.statistic').draggable({
             grid: [mouseIndicator[1].px,mouseIndicator[1].px]

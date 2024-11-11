@@ -47,17 +47,12 @@ body {
 
 .tile {
     position: absolute;
-    width: 50px;
-    height: 50px;
-    z-index: 100;
+    z-index: 0;
 }
 
 .object {
     position: absolute;
-    width: 50px;
-    height: 50px;
-    z-index: 200;
-    background-size: 50px;
+    z-index: auto;
 }
 
 .statistic {
@@ -93,4 +88,40 @@ body {
     top: 50px;
     border-radius: 50%;
     background: blue;
+}
+
+
+.close-button {
+    width: 80px;
+    height: 80px;
+    box-shadow: 0 10 10px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+    background: green;
+    margin: 20px auto;
+    position: relative;
+    display: block;
+    z-index: 200;
+    text-indent: -9999px;
+    cursor: pointer;
+}
+.close-button:before,
+.close-button:after {
+    content: '';
+    width: 80%;
+    height: 6px;
+    background: #BFE2FF;
+    position: absolute;
+    top: 48%;
+    left: 10%;
+    transform: rotate(45deg);
+    transition: all 0.3s ease-out;
+}
+.close-button:after {
+    transform: rotate(-45deg);
+    transition: all 0.3s ease-out;
+}
+.close-button:hover:before,
+.close-button:hover:after {
+    transform: rotate(180deg);
+    background: #FFF;
 }
