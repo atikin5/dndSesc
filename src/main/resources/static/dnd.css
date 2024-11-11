@@ -60,6 +60,26 @@ body {
     background-size: 50px;
 }
 
+.statistic {
+    position: absolute;
+    top: 100px;
+    left: 400px;
+    z-index: auto;
+    border-radius: 10px;
+    border-bottom-color: black;
+}
+
+.characters {
+
+}
+
+.enemies {
+
+}
+
+.otherObjects {
+
+}
 
 .wereeeee {
     background-image: url("pictures/backgrounds/2560x1600-terrain-wa.jpg");
