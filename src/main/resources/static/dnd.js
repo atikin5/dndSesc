@@ -1,6 +1,6 @@
 let styleSheet;
 window.onload = function js() {
-    styleSheet = document.styleSheets[0];
+    styleSheet = document.styleSheets[1];
 }
 
 let idIndicator = 0;
@@ -103,6 +103,11 @@ async function loadMap() {
         }
         console.log("All objects done");
         addListeners();
+        $(function() {
+            $('.object').draggable({
+                grid: [mouseIndicator[0].px,mouseIndicator[0].px]
+            });
+        });
     }
     // else {
     //     alert("Ошибка HTTP: " + response.status);
@@ -117,10 +122,8 @@ $(function () {
 function addListeners() {
     let objects = document.getElementsByClassName('object');
     [].forEach.call(objects, function (object) {
-        object.addEventListener('mousedown', mouseDown, false);
         object.addEventListener('click', click, false);
     })
-    window.addEventListener('mouseup', mouseUp, false);
 }
 
 function cssAddRule(selector, style) {
@@ -149,28 +152,9 @@ function statistic(e) {
     const str = `<div id = "s${a}"class="statistic ${b}" style="left: ${e.clientX}px; top: ${e.clientY}px;"><p>ererere</p></div>`;
     console.log("s" + a);
     $("#map").append(str);
-    document.getElementById("s" + a).addEventListener('mousedown', mouseDown, false);
-    document.getElementById("s" + a).addEventListener('mouseup', mouseUp, false);
-}
-
-function mouseUp() {
-    window.removeEventListener('mousemove', divMove, true);
-}
-
-function mouseDown(e) {
-    window.addEventListener('mousemove', divMove, true);
-    window.moveObject = e.target;
-}
-
-function divMove(e) {
-    let f;
-    for (let i = 0; i < mouseIndicator.length; i++) {
-        if (moveObject.classList.contains(`${mouseIndicator[i].class}`)) {
-            f = mouseIndicator[i].px;
-            break;
-        }
-    }
-    console.log(f);
-    moveObject.style.top = f * Math.trunc((e.clientY) / f) + 'px';
-    moveObject.style.left = f * Math.trunc((e.clientX) / f) + 'px';
+    $(function() {
+        $('.statistic').draggable({
+            grid: [mouseIndicator[1].px,mouseIndicator[1].px]
+        });
+    });
 }
