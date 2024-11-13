@@ -141,14 +141,25 @@ function click(e){
     if (e.shiftKey) {
         statistic(e);
     }
+    if (e.ctrlKey) {
+        ff(e);
+    }
+}
+
+function ff(e) {
+    let a = e.target;
+    let b = a.getElementsByTagName("*")
+    let c = Array.from(b)
+    c.forEach((el) => console.log(el))
 }
 
 let statId;
 let cStatId;
 let cBId;
+let a;
 
 function statistic(e) {
-    window.a = e.target.id;
+    a = e.target.id;
     let b;
     if (a[0] === "c") {
         b = "characters";
@@ -159,32 +170,21 @@ function statistic(e) {
     if (a[0] === "o") {
         b = "otherObjects";
     }
-    const str = `<div id = "${statisticIndicator[a]}${a}"class="statistic ${b}" style="left: ${e.clientX}px; top: ${e.clientY}px;"><p>sdjahuiahfwehgiyweghfowahefuwiahfiuwaegofyowiagfoawfgyiwafwa</p><div id="c-b${statisticIndicator[a]}${a}" class="close-button" onClick="Del(this)"></div></div>`;
+    const str = `<div id = "${statisticIndicator[a]}${a}"class="statistic ${b}" style="left: ${e.clientX}px; top: ${e.clientY}px;"><div id="c-b${statisticIndicator[a]}${a}" class="close-button" onClick="Del(this)"></div></div>`;
     statisticIndicator[a] += 1;
     console.log(statisticIndicator);
     $("#map").append(str);
-    // $(".close-button").on( "click", function(event) {
-    //     statId = event.target.parentNode.id;
-    //     cStatId = statId.slice(0, Math.max(statId.indexOf("c"), statId.indexOf("e"),statId.indexOf("o")));
-    //     cBId = statId.slice(Math.max(statId.indexOf("c"), statId.indexOf("e"),statId.indexOf("o")));
-    //     $(`#${statId}`).remove();
-    //     // let m = document.getElementById(`#${statId}`);
-    //     // m.remove();
-    //     console.log("I delete: " + statId)
-    //
-    //     console.log(statisticIndicator);
-    //     if (Number(cStatId) < statisticIndicator[a]) {
-    //         statisticIndicator[a] -= 1;
-    //         setTimeout(sortId, 0, Number(cStatId), statisticIndicator[a], cBId);
-    //     }
-    // }
-    // );
-
     $(function() {
         $('.statistic').draggable({
             grid: [mouseIndicator[1].px,mouseIndicator[1].px]
         });
     });
+    $( ".statistic" ).resizable(
+        {
+            alsoResize: [`#c-b${e.target.id}`]
+        }
+        //`#c-b${e.target.id}::after`, `#c-b${e.target.id}::before`
+    )
 }
 
 function sortId(a, b, c) {
@@ -200,7 +200,7 @@ function sortId(a, b, c) {
     console.log("done, sort from " + a + " to " + b + " in stats of " + c);
 }
 
-function Del(el) {{
+function Del(el) {
     console.log(el)
     statId = el.parentNode.id;
     cStatId = statId.slice(0, Math.max(statId.indexOf("c"), statId.indexOf("e"),statId.indexOf("o")));
@@ -208,12 +208,19 @@ function Del(el) {{
     $(`#${statId}`).remove();
     console.log("I delete: " + statId)
     console.log(statisticIndicator);
-    if (Number(cStatId) < statisticIndicator[a]) {
-        statisticIndicator[a] -= 1;
-        //setTimeout(sortId, 0, Number(cStatId), statisticIndicator[a], cBId);
+    statisticIndicator[a] -= 1;
+    if (Number(cStatId) <= statisticIndicator[a]) {
         console.log("cStatId " + cStatId + " stat " + statisticIndicator[a] + " cBId " + cBId);
         sortId(Number(cStatId), statisticIndicator[a], cBId);
     }
 }
 
+
+function getIdChildren(element) {
+    let a = element.getElementsByTagName("*");
+    let b = Array.from(a);
+    for (let i = 0; i < b.length; i++) {
+        b[i] = '.' + b[i].id
+    }
+    return b;
 }
