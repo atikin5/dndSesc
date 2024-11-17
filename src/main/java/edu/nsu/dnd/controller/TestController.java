@@ -1,6 +1,6 @@
 package edu.nsu.dnd.controller;
 
-import edu.nsu.dnd.model.Person;
+//import edu.nsu.dnd.model.Person;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,13 +14,13 @@ public class TestController {
         return "Hello";
     }
 
-    @GetMapping("/hello/{name}/{age}")
-    public Person helloGet(@PathVariable String name, @PathVariable int age) {
-        Person person = new Person();
-        person.setName(name);
-        person.setAge(age);
-        return person;
-    }
+//    @GetMapping("/hello/{name}/{age}")
+//    public Person helloGet(@PathVariable String name, @PathVariable int age) {
+////        Person person = new Person
+////        person.setName(name);
+////        person.setAge(age);
+////        return person;
+//    }
 
     @PostMapping("/hello")
     @ResponseStatus(HttpStatus.CREATED)
@@ -46,8 +46,8 @@ public class TestController {
         return "Hello Bill static";
     }
 
-    @PostMapping("/hello/person")
-    public String helloPost(@RequestBody Person person) {
-        return "Hello " + person.getName() + " of age " + person.getAge();
-    }
+//    @PostMapping("/hello/person")
+//    public String helloPost(@RequestBody Person person) {
+//        return "Hello " + person.getName() + " of age " + person.getAge();
+//    }
 }

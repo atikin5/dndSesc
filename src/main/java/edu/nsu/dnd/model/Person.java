@@ -1,23 +1,21 @@
 package edu.nsu.dnd.model;
 
-public class Person {
+import edu.nsu.dnd.model.enums.Resistance;
+import edu.nsu.dnd.model.enums.TypeOfDamage;
+import lombok.Getter;
+import lombok.Setter;
 
-    private String name;
+import java.util.Map;
+
+
+@Getter
+@Setter
+public class Person extends Creature {
+
     private int age;
+    private PersonClass personClass;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
+    public Person(String id, String name, Position position, int healthPoints, int armorClass, Map<TypeOfDamage, Resistance> resistances) {
+        super(id, name, position, healthPoints, armorClass, resistances);
     }
 }

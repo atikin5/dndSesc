@@ -1,14 +1,20 @@
 package edu.nsu.dnd.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class GameMap {
 
-    private Tile[][] tiles;
+    private Tile[] tiles;
+    private Wall[] walls;
+    private Person[] characters;
+    private Creature[] enemies;
+    private InteractiveObject[] otherObjects;
 
-    public Tile[][] getTiles() {
-        return tiles;
-    }
-
-    public void setTiles(Tile[][] tiles) {
-        this.tiles = tiles;
-    }
 }

@@ -106,11 +106,13 @@ body {
     z-index: 200;
     /*text-indent: -9999px;*/
     cursor: pointer;
+    left: 10%;
+    top: 10%;
 }
 .close-button:before,
 .close-button:after {
     content: '';
-    width: 64px;
+    width: 80%;
     height: 6px;
     background: #BFE2FF;
     position: absolute;
@@ -120,15 +122,12 @@ body {
     transition: all 0.3s ease-out;
 }
 .close-button:after {
-    width: 64px;
-    height: 6px;
     transform: rotate(-45deg);
     transition: all 0.3s ease-out;
 }
 .close-button:hover:before,
 .close-button:hover:after {
-    width: 64px;
-    height: 6px;
+
     transform: rotate(180deg);
     background: #FFF;
 }

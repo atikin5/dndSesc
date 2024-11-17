@@ -1,5 +1,6 @@
 package edu.nsu.dnd.model.persistent;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -27,6 +28,6 @@ public class Session extends AbstractPersistable<Long> {
 
     private Date startDate;
 
-    @OneToMany(mappedBy = "session")
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
     private List<Character> characters = new ArrayList<>();
 }

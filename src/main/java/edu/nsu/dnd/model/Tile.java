@@ -1,28 +1,16 @@
 package edu.nsu.dnd.model;
 
-public class Tile {
+import lombok.Getter;
+import lombok.Setter;
 
-    private boolean visible;
-    private boolean walkable;
-    private String type;
-    private int absX;
-    private int absY;
+@Getter
+@Setter
+public class Tile extends MapObject{
 
-    public Tile(boolean visible, boolean walkable,  String type, int absX, int absY) {
-        this.visible = visible;
-        this.walkable = walkable;
-        this.type = type;
-        this.absX = absX;
-        this.absY = absY;
+    private Boolean visibleAtMoment;
+
+    public Tile(String id, String type, Position position, Boolean visibleAtMoment) {
+        super(id, type, position);
+        this.visibleAtMoment = visibleAtMoment;
     }
-
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public boolean isWalkable() {
-        return walkable;
-    }
-
-
 }

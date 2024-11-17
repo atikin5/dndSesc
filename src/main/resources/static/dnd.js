@@ -17,6 +17,7 @@ async function loadMap() {
 
     //if (response.ok)
     {
+        document.getElementById("load-map").remove();
         let [json] = await Promise.all([{
             "tiles": [
                 {"visible": true, "walkable": false, "type": "fire", "absX": 0, "absY": 0},
@@ -141,16 +142,6 @@ function click(e){
     if (e.shiftKey) {
         statistic(e);
     }
-    if (e.ctrlKey) {
-        ff(e);
-    }
-}
-
-function ff(e) {
-    let a = e.target;
-    let b = a.getElementsByTagName("*")
-    let c = Array.from(b)
-    c.forEach((el) => console.log(el))
 }
 
 let statId;
@@ -171,20 +162,21 @@ function statistic(e) {
         b = "otherObjects";
     }
     const str = `<div id = "${statisticIndicator[a]}${a}"class="statistic ${b}" style="left: ${e.clientX}px; top: ${e.clientY}px;"><div id="c-b${statisticIndicator[a]}${a}" class="close-button" onClick="Del(this)"></div></div>`;
-    statisticIndicator[a] += 1;
-    console.log(statisticIndicator);
     $("#map").append(str);
+    console.log(statisticIndicator);
     $(function() {
         $('.statistic').draggable({
             grid: [mouseIndicator[1].px,mouseIndicator[1].px]
         });
     });
+    console.log(document.getElementById(`c-b${statisticIndicator[a]}${a}`))
     $( ".statistic" ).resizable(
         {
-            alsoResize: [`#c-b${e.target.id}`]
+            autoHide: true,
+            aspectRatio: true
         }
-        //`#c-b${e.target.id}::after`, `#c-b${e.target.id}::before`
     )
+    statisticIndicator[a] += 1;
 }
 
 function sortId(a, b, c) {
@@ -220,7 +212,7 @@ function getIdChildren(element) {
     let a = element.getElementsByTagName("*");
     let b = Array.from(a);
     for (let i = 0; i < b.length; i++) {
-        b[i] = '.' + b[i].id
+        b[i] = '#' + b[i].id
     }
     return b;
 }

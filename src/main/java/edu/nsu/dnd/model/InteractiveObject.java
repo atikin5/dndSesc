@@ -1,27 +1,35 @@
 package edu.nsu.dnd.model;
 
-import edu.nsu.dnd.model.type.Status;
+import edu.nsu.dnd.model.enums.Resistance;
+import edu.nsu.dnd.model.enums.Size;
+import edu.nsu.dnd.model.enums.TypeOfDamage;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Map;
+
 @Getter
 @Setter
 public class InteractiveObject extends MapObject{
 
-    private int healthPoints;
-    private int armorClass;
-    private Status status;
 
-    public InteractiveObject(int id, String name, Position position, int healthPoints, int armorClass, Status status) {
+    private int currentHealthPoints;
+    private int maxHealthPoints;
+    private int armorClass;
+    private Map<TypeOfDamage, Resistance> resistances;
+    private Size size;
+
+    public InteractiveObject(String id, String name, Position position, int healthPoints, int armorClass, Map<TypeOfDamage, Resistance> resistances) {
         super(id, name, position);
-        this.healthPoints = healthPoints;
+        this.currentHealthPoints = healthPoints;
         this.armorClass = armorClass;
-        this.status = status;
+        this.resistances = resistances;
     }
 
     public void inflictDamage(int damage) {
-        healthPoints -= damage;
-        if (healthPoints <= 0) {
-            healthPoints = 0;
+        currentHealthPoints -= damage;
+        if (currentHealthPoints <= 0) {
+            currentHealthPoints = 0;
         }
     }
 }
