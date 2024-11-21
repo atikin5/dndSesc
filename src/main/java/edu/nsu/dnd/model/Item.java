@@ -10,15 +10,22 @@ import java.util.Map;
 
 @Getter
 @Setter
-@AllArgsConstructor
-public class Item {
+public class Item extends MapObject{
 
-    private String id;
     private String name;
     private String description;
+    private Boolean handPosition;
     private ArrayList<TypeOfDamage> commonDamage;
     private ArrayList<TypeOfDamage> optionalDamage;
     private ArrayList<TypeOfDamage> ifMissDamage;
 
-
+    public Item(String type, Position position, String name, String description, Boolean handPosition, ArrayList<TypeOfDamage> commonDamage, ArrayList<TypeOfDamage> optionalDamage, ArrayList<TypeOfDamage> ifMissDamage) {
+        super(type, position);
+        this.name = name;
+        this.description = description;
+        this.handPosition = handPosition;
+        this.commonDamage = commonDamage;
+        this.optionalDamage = optionalDamage;
+        this.ifMissDamage = ifMissDamage;
+    }
 }

@@ -47,5 +47,4 @@
                                  referencedTableName="master" referencedColumnNames="id"
                                  constraintName="session_master_id_fk"/>
     </changeSet>
-
 </databaseChangeLog>

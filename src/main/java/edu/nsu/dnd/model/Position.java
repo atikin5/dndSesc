@@ -9,6 +9,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Position {
 
-    private int x;
-    private int y;
+    private Integer x;
+    private Integer y;
 }

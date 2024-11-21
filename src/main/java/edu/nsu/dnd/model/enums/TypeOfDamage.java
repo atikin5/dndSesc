@@ -1,7 +1,6 @@
 package edu.nsu.dnd.model.enums;
 
 public enum TypeOfDamage {
-
     SLASHING,
     PIERCING,
     BLUDGEONING,

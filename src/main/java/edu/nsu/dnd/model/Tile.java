@@ -9,8 +9,8 @@ public class Tile extends MapObject{
 
     private Boolean visibleAtMoment;
 
-    public Tile(String id, String type, Position position, Boolean visibleAtMoment) {
-        super(id, type, position);
+    public Tile(String type, Position position, Boolean visibleAtMoment) {
+        super(type, position);
         this.visibleAtMoment = visibleAtMoment;
     }
 }

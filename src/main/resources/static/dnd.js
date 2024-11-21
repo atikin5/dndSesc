@@ -206,13 +206,3 @@ function Del(el) {
         sortId(Number(cStatId), statisticIndicator[a], cBId);
     }
 }
-
-
-function getIdChildren(element) {
-    let a = element.getElementsByTagName("*");
-    let b = Array.from(a);
-    for (let i = 0; i < b.length; i++) {
-        b[i] = '#' + b[i].id
-    }
-    return b;
-}

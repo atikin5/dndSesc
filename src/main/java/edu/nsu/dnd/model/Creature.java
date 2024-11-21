@@ -20,7 +20,15 @@ public class Creature extends InteractiveObject {
     private ArrayList<Condition> conditions;
     private int tempHealthPoints;
 
-    public Creature(String id, String name, Position position, int healthPoints, int armorClass, Map<TypeOfDamage, Resistance> resistances) {
-        super(id, name, position, healthPoints, armorClass, resistances);
+    public Creature(String type, Position position, int currentHealthPoints, int maxHealthPoints, int armorClass, Map<TypeOfDamage, DamageMultiplier> resistances, Size size, Status status, ArrayList<Item> backpackItems, ArrayList<Item> handItems, Abilities abilities, Race race, int speed, ArrayList<Condition> conditions, int tempHealthPoints) {
+        super(type, position, currentHealthPoints, maxHealthPoints, armorClass, resistances, size);
+        this.status = status;
+        this.backpackItems = backpackItems;
+        this.handItems = handItems;
+        this.abilities = abilities;
+        this.race = race;
+        this.speed = speed;
+        this.conditions = conditions;
+        this.tempHealthPoints = tempHealthPoints;
     }
 }

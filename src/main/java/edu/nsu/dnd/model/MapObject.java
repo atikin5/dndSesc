@@ -9,7 +9,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class MapObject {
 
-    private final String id;
     private String type;
     private Position position;
 
