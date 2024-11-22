@@ -11,24 +11,20 @@ import java.util.Map;
 @Setter
 public class Creature extends InteractiveObject {
 
-    private Status status;
     private ArrayList<Item> backpackItems;
     private ArrayList<Item> handItems;
     private Abilities abilities;
     private Race race;
     private int speed;
     private ArrayList<Condition> conditions;
-    private int tempHealthPoints;
 
-    public Creature(String type, Position position, int currentHealthPoints, int maxHealthPoints, int armorClass, Map<TypeOfDamage, DamageMultiplier> resistances, Size size, Status status, ArrayList<Item> backpackItems, ArrayList<Item> handItems, Abilities abilities, Race race, int speed, ArrayList<Condition> conditions, int tempHealthPoints) {
-        super(type, position, currentHealthPoints, maxHealthPoints, armorClass, resistances, size);
-        this.status = status;
+    public Creature(String type, Position position, Status status, int currentHealthPoints, int maxHealthPoints, int temporaryHealthPoints, int armorClass, Map<TypeOfDamage, DamageMultiplier> damageMultipliers, Size size, ArrayList<Item> backpackItems, ArrayList<Item> handItems, Abilities abilities, Race race, int speed, ArrayList<Condition> conditions) {
+        super(type, position, status, currentHealthPoints, maxHealthPoints, temporaryHealthPoints, armorClass, damageMultipliers, size);
         this.backpackItems = backpackItems;
         this.handItems = handItems;
         this.abilities = abilities;
         this.race = race;
         this.speed = speed;
         this.conditions = conditions;
-        this.tempHealthPoints = tempHealthPoints;
     }
 }

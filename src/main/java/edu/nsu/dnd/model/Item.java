@@ -28,4 +28,5 @@ public class Item extends MapObject{
         this.optionalDamage = optionalDamage;
         this.ifMissDamage = ifMissDamage;
     }
+
 }

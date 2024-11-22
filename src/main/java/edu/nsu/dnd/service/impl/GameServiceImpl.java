@@ -17,8 +17,8 @@ public class GameServiceImpl implements GameService {
     private final WebSocketMessagingService webSocketMessagingService;
 
     @Override
-    public Object moveCharacter(Long sessionId, Long characterId, Integer direction) {
-        Session session = sessionRepository.findById(sessionId).orElseThrow(() -> new RuntimeException("session not found"));
+    public Object moveCharacter(Long campaignId, Long characterId, Integer direction) {
+        Session session = sessionRepository.findById(campaignId).orElseThrow(() -> new RuntimeException("session not found"));
         // Fetch from DB
         // Update state
         // Save DB

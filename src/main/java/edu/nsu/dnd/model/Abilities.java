@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Abilities {
+
     private int strength;
     private int dexterity;
     private int constitution;

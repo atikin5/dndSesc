@@ -17,4 +17,5 @@ public class Wall extends MapObject{
         this.walkable = walkable;
         this.orientation = orientation;
     }
+
 }

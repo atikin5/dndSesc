@@ -13,4 +13,5 @@ public class Tile extends MapObject{
         super(type, position);
         this.visibleAtMoment = visibleAtMoment;
     }
+
 }

@@ -9,9 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GameMap {
+public class Campaign {
 
-    private Tile[] tiles;
-    private Wall[] walls;
+    private Person[] characters;
+    private Creature[] enemies;
+    private InteractiveObject[] otherObjects;
+    private GameMap[] gameMaps;
 
 }

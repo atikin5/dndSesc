@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/{sessionId}")
+@RequestMapping("/{campaignId}")
 public class GameController {
 
     private final GameService gameService;
 
     @PostMapping("/move/{characterId}")
-    public Object move(@PathVariable Long sessionId, @PathVariable Long characterId, @RequestBody Object o) {
-        return gameService.moveCharacter(sessionId, characterId, 1);
+    public Object move(@PathVariable Long campaignId, @PathVariable Long characterId, @RequestBody Object o) {
+        return gameService.moveCharacter(campaignId, characterId, 1);
     }
 }
