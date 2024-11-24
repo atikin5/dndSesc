@@ -1,6 +1,6 @@
 package edu.nsu.dnd.model.enums;
 
-public enum TypeOfPersonClass {
+public enum ClassType {
     BARBARIAN,
     BARD,
     CLERIC,

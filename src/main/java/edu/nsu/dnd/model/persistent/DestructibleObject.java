@@ -1,36 +1,38 @@
-package edu.nsu.dnd.model;
+package edu.nsu.dnd.model.persistent;
 
-import edu.nsu.dnd.model.enums.DamageMultiplier;
-import edu.nsu.dnd.model.enums.Size;
-import edu.nsu.dnd.model.enums.Status;
-import edu.nsu.dnd.model.enums.TypeOfDamage;
+import edu.nsu.dnd.model.enums.*;
+import edu.nsu.dnd.model.persistent.base.MovableObject;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
-public class InteractiveObject extends MapObject{
+public class DestructibleObject extends MovableObject {
 
-    private Status status;
+    private boolean operational = true;
     private int currentHealthPoints;
     private int maxHealthPoints;
     private int temporaryHealthPoints;
     private int armorClass;
-    private Map<TypeOfDamage, DamageMultiplier> damageMultipliers;
+
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    @MapKeyEnumerated(EnumType.STRING)
+    private Map<DamageType, DamageMultiplier> damageMultipliers;
+
+    @Enumerated(EnumType.STRING)
     private Size size;
 
-    public InteractiveObject(String type, Position position, Status status, int currentHealthPoints, int maxHealthPoints, int temporaryHealthPoints, int armorClass, Map<TypeOfDamage, DamageMultiplier> damageMultipliers, Size size) {
-        super(type, position);
-        this.status = status;
-        this.currentHealthPoints = currentHealthPoints;
-        this.maxHealthPoints = maxHealthPoints;
-        this.temporaryHealthPoints = temporaryHealthPoints;
-        this.armorClass = armorClass;
-        this.damageMultipliers = damageMultipliers;
-        this.size = size;
-    }
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    private List<Condition> conditions = new ArrayList<>();
 
     public void inflictDamage(int damage, boolean critical) {
         if (temporaryHealthPoints >= damage) {
@@ -41,7 +43,7 @@ public class InteractiveObject extends MapObject{
             temporaryHealthPoints = 0;
             if (currentHealthPoints <= 0) {
                 currentHealthPoints = 0;
-                status = Status.DEAD;
+                operational = false;
             }
         }
     }

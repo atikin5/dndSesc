@@ -1,12 +1,12 @@
-package edu.nsu.dnd.model;
+package edu.nsu.dnd.model.persistent.embeddable;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.Setter;
 
+@Embeddable
 @Getter
 @Setter
-@AllArgsConstructor
 public class Position {
 
     private Integer x;

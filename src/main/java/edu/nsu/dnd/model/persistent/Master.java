@@ -21,8 +21,4 @@ public class Master extends AbstractPersistable<Long> {
     private String password;
 
     private String email;
-
-    @OneToMany(mappedBy = "master")
-    private List<Session> sessions = new ArrayList<>();
-
 }

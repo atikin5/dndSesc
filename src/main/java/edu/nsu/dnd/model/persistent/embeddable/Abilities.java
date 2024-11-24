@@ -1,12 +1,12 @@
-package edu.nsu.dnd.model;
+package edu.nsu.dnd.model.persistent.embeddable;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.Setter;
 
+@Embeddable
 @Getter
 @Setter
-@AllArgsConstructor
 public class Abilities {
 
     private int strength;
@@ -17,22 +17,27 @@ public class Abilities {
     private int charisma;
 
     public int getStrengthModifier() {
-        return (strength - 10)/2;
+        return (strength - 10) / 2;
     }
+
     public int getDexterityModifier() {
-        return (dexterity - 10)/2;
+        return (dexterity - 10) / 2;
     }
+
     public int getConstitutionModifier() {
-        return (constitution - 10)/2;
+        return (constitution - 10) / 2;
     }
+
     public int getIntelligenceModifier() {
-        return (intelligence - 10)/2;
+        return (intelligence - 10) / 2;
     }
+
     public int getWisdomModifier() {
-        return (wisdom - 10)/2;
+        return (wisdom - 10) / 2;
     }
+
     public int getCharismaModifier() {
-        return (charisma - 10)/2;
+        return (charisma - 10) / 2;
     }
 
 }
