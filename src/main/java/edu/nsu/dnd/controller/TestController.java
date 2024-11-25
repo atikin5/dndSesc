@@ -1,5 +1,6 @@
 package edu.nsu.dnd.controller;
 
+import edu.nsu.dnd.model.dto.CampaignAllResponse;
 import edu.nsu.dnd.model.enums.Condition;
 import edu.nsu.dnd.model.enums.DamageMultiplier;
 import edu.nsu.dnd.model.enums.DamageType;
@@ -17,9 +18,9 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.invoke.CallSite;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Transactional
@@ -78,24 +79,6 @@ public class TestController {
         characterRepository.save(dndCharacter);
     }
 
-    @GetMapping("/campaign")
-    public Campaign getCampaign() {
-        Campaign campaign = campaignRepository.findAll().getFirst();
-
-//        Optional<DestructibleObject> destructibleObject = destructibleObjectRepository.findById(1L);
-//        Optional<Creature> creature2 = creatureRepository.findById(2L);
-//        Optional<Creature> creature3 = creatureRepository.findById(3L);
-//        Optional<DndCharacter> character = characterRepository.findById(3L);
-//        //System.out.printf("Found characters:  " + campaign.getDndCharacters().size());
-        return campaign;
-    }
-
-
-        //    @GetMapping("/hello/{name}/{age}")
-//    public DndCharacter helloGet(@PathVariable String name, @PathVariable int age) {
-//        DndCharacter person = new DndCharacter
-//        person.setName(name);
-//        person.setAge(age);
-//        return person;
-//    }
+    @GetMapping("/campaign/{id}")
+    public CampaignAllResponse getCampaignById(@PathVariable Long id) {return new CampaignAllResponse(campaignRepository.getReferenceById(id)); }
 }
