@@ -1,6 +1,7 @@
 package edu.nsu.dnd.model.persistent;
 
 import edu.nsu.dnd.model.enums.*;
+import edu.nsu.dnd.model.persistent.base.Alive;
 import edu.nsu.dnd.model.persistent.embeddable.CharacterClass;
 import edu.nsu.dnd.model.persistent.embeddable.CharacterDescription;
 import jakarta.persistence.*;
@@ -13,10 +14,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "dnd_character")
-@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
-public class DndCharacter extends Creature {
+public class DndCharacter extends Alive {
 
     @ElementCollection
     private List<CharacterClass> characterClasses = new ArrayList<>();
@@ -76,5 +76,6 @@ public class DndCharacter extends Creature {
             }
         }
     }
+
 
 }

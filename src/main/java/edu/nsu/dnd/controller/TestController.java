@@ -53,6 +53,9 @@ public class TestController {
         Creature creature = new Creature();
         creature.setCampaign(savedCampaign);
         creature.setType("test-creature");
+        creature.setDamageMultipliers(Map.of(
+                DamageType.FIRE, DamageMultiplier.IMMUNITY
+        ));
 
         Abilities abilities = new Abilities();
         abilities.setCharisma(4);
@@ -63,32 +66,36 @@ public class TestController {
         DndCharacter dndCharacter = new DndCharacter();
         dndCharacter.setCampaign(savedCampaign);
         dndCharacter.setType("test-dndCharacter");
+        dndCharacter.setDamageMultipliers(Map.of(
+                DamageType.NECROTIC, DamageMultiplier.RESISTANCE,
+                DamageType.COLD, DamageMultiplier.VULNERABILITY
+        ));
 
         CharacterDescription characterDescription = new CharacterDescription();
         characterDescription.setFirstName("Test");
         characterDescription.setLastName("DndCharacter");
         dndCharacter.setCharacterDescription(characterDescription);
-        creatureRepository.save(dndCharacter);
+        characterRepository.save(dndCharacter);
     }
 
     @GetMapping("/campaign")
     public Campaign getCampaign() {
-        //Campaign campaign = campaignRepository.findAll().getFirst();
+        Campaign campaign = campaignRepository.findAll().getFirst();
 
-        Optional<DestructibleObject> destructibleObject = destructibleObjectRepository.findById(1L);
-        Optional<Creature> creature2 = creatureRepository.findById(2L);
+//        Optional<DestructibleObject> destructibleObject = destructibleObjectRepository.findById(1L);
+//        Optional<Creature> creature2 = creatureRepository.findById(2L);
 //        Optional<Creature> creature3 = creatureRepository.findById(3L);
-        Optional<DndCharacter> character = characterRepository.findById(3L);
-        //System.out.printf("Found characters:  " + campaign.getDndCharacters().size());
-        return null;
+//        Optional<DndCharacter> character = characterRepository.findById(3L);
+//        //System.out.printf("Found characters:  " + campaign.getDndCharacters().size());
+        return campaign;
     }
 
 
         //    @GetMapping("/hello/{name}/{age}")
 //    public DndCharacter helloGet(@PathVariable String name, @PathVariable int age) {
-////        DndCharacter person = new DndCharacter
-////        person.setName(name);
-////        person.setAge(age);
-////        return person;
+//        DndCharacter person = new DndCharacter
+//        person.setName(name);
+//        person.setAge(age);
+//        return person;
 //    }
 }
