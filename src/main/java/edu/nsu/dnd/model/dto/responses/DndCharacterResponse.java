@@ -1,11 +1,10 @@
-package edu.nsu.dnd.model.dto;
+package edu.nsu.dnd.model.dto.responses;
 
 import edu.nsu.dnd.model.enums.Condition;
 import edu.nsu.dnd.model.enums.DamageMultiplier;
 import edu.nsu.dnd.model.enums.DamageType;
 import edu.nsu.dnd.model.enums.Size;
 import edu.nsu.dnd.model.persistent.DndCharacter;
-import edu.nsu.dnd.model.persistent.Item;
 import edu.nsu.dnd.model.persistent.embeddable.CharacterClass;
 import edu.nsu.dnd.model.persistent.embeddable.CharacterDescription;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
@@ -26,9 +25,9 @@ public class DndCharacterResponse {
     private String type;
     private Position position;
     private boolean operational;
-    private int currentHealthPoints;
-    private int maxHealthPoints;
-    private int temporaryHealthPoints;
+    private int currentHp;
+    private int maxHp;
+    private int temporaryHp;
     private int armorClass;
     private Map<DamageType, DamageMultiplier> damageMultipliers;
     private Size size;
@@ -45,9 +44,9 @@ public class DndCharacterResponse {
         type = dndCharacter.getType();
         position = dndCharacter.getPosition();
         operational = dndCharacter.isOperational();
-        currentHealthPoints = dndCharacter.getCurrentHealthPoints();
-        maxHealthPoints = dndCharacter.getMaxHealthPoints();
-        temporaryHealthPoints = dndCharacter.getTemporaryHealthPoints();
+        currentHp = dndCharacter.getCurrentHp();
+        maxHp = dndCharacter.getMaxHp();
+        temporaryHp = dndCharacter.getTemporaryHp();
         armorClass = dndCharacter.getArmorClass();
         damageMultipliers = dndCharacter.getDamageMultipliers();
         size = dndCharacter.getSize();

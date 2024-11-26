@@ -1,24 +1,17 @@
 package edu.nsu.dnd.controller;
 
-import edu.nsu.dnd.model.dto.CampaignAllResponse;
+import edu.nsu.dnd.model.dto.responses.CampaignAllResponse;
 import edu.nsu.dnd.model.enums.Condition;
 import edu.nsu.dnd.model.enums.DamageMultiplier;
 import edu.nsu.dnd.model.enums.DamageType;
-import edu.nsu.dnd.model.persistent.Campaign;
-import edu.nsu.dnd.model.persistent.DndCharacter;
-import edu.nsu.dnd.model.persistent.Creature;
-import edu.nsu.dnd.model.persistent.DestructibleObject;
+import edu.nsu.dnd.model.persistent.*;
 import edu.nsu.dnd.model.persistent.embeddable.Abilities;
 import edu.nsu.dnd.model.persistent.embeddable.CharacterDescription;
-import edu.nsu.dnd.repository.CampaignRepository;
-import edu.nsu.dnd.repository.CharacterRepository;
-import edu.nsu.dnd.repository.CreatureRepository;
-import edu.nsu.dnd.repository.DestructibleObjectRepository;
+import edu.nsu.dnd.repository.*;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.invoke.CallSite;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +25,7 @@ public class TestController {
     private final DestructibleObjectRepository destructibleObjectRepository;
     private final CreatureRepository creatureRepository;
     private final CharacterRepository characterRepository;
+    private final ItemRepository itemRepository;
 
     /**
      * Тестовый метод создания кампании с вложенными объектами
@@ -47,9 +41,11 @@ public class TestController {
         destructibleObject.setDamageMultipliers(Map.of(
                 DamageType.ACID, DamageMultiplier.RESISTANCE,
                 DamageType.COLD, DamageMultiplier.VULNERABILITY));
-        destructibleObject.setMaxHealthPoints(50);
+        destructibleObject.setMaxHp(50);
         destructibleObject.setConditions(List.of(Condition.BLINDED, Condition.CHARMED));
         destructibleObjectRepository.save(destructibleObject);
+
+
 
         Creature creature = new Creature();
         creature.setCampaign(savedCampaign);
@@ -57,6 +53,19 @@ public class TestController {
         creature.setDamageMultipliers(Map.of(
                 DamageType.FIRE, DamageMultiplier.IMMUNITY
         ));
+
+
+        Item item = new Item();
+        item.setCampaign(savedCampaign);
+        item.setType("Hammer");
+        item.setName("Test item");
+        item.setDescription("Test item description");
+        item.setCommonDamage(List.of(DamageType.SLASHING, DamageType.POISON));
+
+        creature.setBackpackItems(List.of(item));
+
+        itemRepository.save(item);
+
 
         Abilities abilities = new Abilities();
         abilities.setCharisma(4);

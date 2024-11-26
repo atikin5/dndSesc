@@ -18,9 +18,9 @@ import java.util.Map;
 public abstract class Destructible extends MovableObject {
 
     private boolean operational = true;
-    private int currentHealthPoints;
-    private int maxHealthPoints;
-    private int temporaryHealthPoints;
+    private int currentHp;
+    private int maxHp;
+    private int temporaryHp;
     private int armorClass;
 
     @ElementCollection
@@ -36,28 +36,28 @@ public abstract class Destructible extends MovableObject {
     private List<Condition> conditions = new ArrayList<>();
 
     public void inflictDamage(int damage, boolean critical) {
-        if (temporaryHealthPoints >= damage) {
-            temporaryHealthPoints -= damage;
+        if (temporaryHp >= damage) {
+            temporaryHp -= damage;
         }
         else {
-            currentHealthPoints = currentHealthPoints - damage + temporaryHealthPoints;
-            temporaryHealthPoints = 0;
-            if (currentHealthPoints <= 0) {
-                currentHealthPoints = 0;
+            currentHp = currentHp - damage + temporaryHp;
+            temporaryHp = 0;
+            if (currentHp <= 0) {
+                currentHp = 0;
                 operational = false;
             }
         }
     }
 
     public void healDamage(int damage) {
-        currentHealthPoints += damage;
-        if (currentHealthPoints >= maxHealthPoints) {
-            currentHealthPoints = maxHealthPoints;
+        currentHp += damage;
+        if (currentHp >= maxHp) {
+            currentHp = maxHp;
         }
     }
 
     public void healTemporaryDamage(int damage) {
-        temporaryHealthPoints = Math.max(temporaryHealthPoints, damage);
+        temporaryHp = Math.max(temporaryHp, damage);
     }
 
 }

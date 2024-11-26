@@ -1,4 +1,4 @@
-package edu.nsu.dnd.model.dto;
+package edu.nsu.dnd.model.dto.requests;
 
 import lombok.Data;
 

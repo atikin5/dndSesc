@@ -1,6 +1,6 @@
 package edu.nsu.dnd.service.impl;
 
-import edu.nsu.dnd.model.dto.MasterRequest;
+import edu.nsu.dnd.model.dto.requests.MasterRequest;
 import edu.nsu.dnd.model.persistent.Master;
 import edu.nsu.dnd.repository.MasterRepository;
 import edu.nsu.dnd.service.MasterService;

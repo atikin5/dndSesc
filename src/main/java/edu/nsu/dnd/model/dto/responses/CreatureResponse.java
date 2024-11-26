@@ -1,11 +1,10 @@
-package edu.nsu.dnd.model.dto;
+package edu.nsu.dnd.model.dto.responses;
 
 import edu.nsu.dnd.model.enums.Condition;
 import edu.nsu.dnd.model.enums.DamageMultiplier;
 import edu.nsu.dnd.model.enums.DamageType;
 import edu.nsu.dnd.model.enums.Size;
 import edu.nsu.dnd.model.persistent.Creature;
-import edu.nsu.dnd.model.persistent.Item;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,9 +23,9 @@ public class CreatureResponse {
     private String type;
     private Position position;
     private boolean operational;
-    private int currentHealthPoints;
-    private int maxHealthPoints;
-    private int temporaryHealthPoints;
+    private int currentHp;
+    private int maxHp;
+    private int temporaryHp;
     private int armorClass;
     private Map<DamageType, DamageMultiplier> damageMultipliers;
     private Size size;
@@ -39,9 +38,9 @@ public class CreatureResponse {
         type = creature.getType();
         position = creature.getPosition();
         operational = creature.isOperational();
-        currentHealthPoints = creature.getCurrentHealthPoints();
-        maxHealthPoints = creature.getMaxHealthPoints();
-        temporaryHealthPoints = creature.getTemporaryHealthPoints();
+        currentHp = creature.getCurrentHp();
+        maxHp = creature.getMaxHp();
+        temporaryHp = creature.getTemporaryHp();
         armorClass = creature.getArmorClass();
         damageMultipliers = creature.getDamageMultipliers();
         size = creature.getSize();

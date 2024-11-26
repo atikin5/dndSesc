@@ -1,8 +1,9 @@
 package edu.nsu.dnd.controller;
 
-import edu.nsu.dnd.model.dto.MasterRequest;
-import edu.nsu.dnd.model.dto.MasterResponse;
+import edu.nsu.dnd.model.dto.requests.MasterRequest;
+import edu.nsu.dnd.model.dto.responses.MasterResponse;
 import edu.nsu.dnd.service.MasterService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/masters")
+@Transactional
 public class MasterController {
 
     private final MasterService masterService;

@@ -31,7 +31,7 @@ public class DndCharacter extends Alive {
     @Override
     public void inflictDamage(int damage, boolean critical) {
         if (getConditions().contains(Condition.UNCONSCIOUS)) {
-            if (getMaxHealthPoints() <= damage) {
+            if (getMaxHp() <= damage) {
                 setOperational(false);
             }
             else {
@@ -47,13 +47,13 @@ public class DndCharacter extends Alive {
             }
         }
         if (isOperational() && !getConditions().contains(Condition.UNCONSCIOUS)) {
-            if (getTemporaryHealthPoints() >= damage) {
-                setTemporaryHealthPoints(getTemporaryHealthPoints() - damage);
+            if (getTemporaryHp() >= damage) {
+                setTemporaryHp(getTemporaryHp() - damage);
             } else {
-                setCurrentHealthPoints(getCurrentHealthPoints() - damage + getTemporaryHealthPoints());
-                setTemporaryHealthPoints(0);
-                if (getCurrentHealthPoints() <= 0) {
-                    setCurrentHealthPoints(0);
+                setCurrentHp(getCurrentHp() - damage + getTemporaryHp());
+                setTemporaryHp(0);
+                if (getCurrentHp() <= 0) {
+                    setCurrentHp(0);
                     getConditions().add(Condition.UNCONSCIOUS);
                 }
             }

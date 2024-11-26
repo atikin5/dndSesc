@@ -1,4 +1,4 @@
-package edu.nsu.dnd.model.dto;
+package edu.nsu.dnd.model.dto.responses;
 
 import edu.nsu.dnd.model.enums.DamageType;
 import edu.nsu.dnd.model.persistent.Item;

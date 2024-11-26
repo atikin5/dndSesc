@@ -4,6 +4,7 @@ import edu.nsu.dnd.model.enums.DamageType;
 import edu.nsu.dnd.model.persistent.base.MovableObject;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Item extends MovableObject {
 
     private String name;

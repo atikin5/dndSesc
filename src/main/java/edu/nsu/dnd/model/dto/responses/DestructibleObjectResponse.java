@@ -1,18 +1,16 @@
-package edu.nsu.dnd.model.dto;
+package edu.nsu.dnd.model.dto.responses;
 
 import edu.nsu.dnd.model.enums.Condition;
 import edu.nsu.dnd.model.enums.DamageMultiplier;
 import edu.nsu.dnd.model.enums.DamageType;
 import edu.nsu.dnd.model.enums.Size;
 import edu.nsu.dnd.model.persistent.DestructibleObject;
-import edu.nsu.dnd.model.persistent.embeddable.Abilities;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,9 +22,9 @@ public class DestructibleObjectResponse {
     private String type;
     private Position position;
     private boolean operational;
-    private int currentHealthPoints;
-    private int maxHealthPoints;
-    private int temporaryHealthPoints;
+    private int currentHp;
+    private int maxHp;
+    private int temporaryHp;
     private int armorClass;
     private Map<DamageType, DamageMultiplier> damageMultipliers;
     private Size size;
@@ -37,8 +35,8 @@ public class DestructibleObjectResponse {
         type = destructibleObject.getType();
         position = destructibleObject.getPosition();
         operational = destructibleObject.isOperational();
-        currentHealthPoints = destructibleObject.getCurrentHealthPoints();
-        maxHealthPoints = destructibleObject.getMaxHealthPoints();
+        currentHp = destructibleObject.getCurrentHp();
+        maxHp = destructibleObject.getMaxHp();
         armorClass = destructibleObject.getArmorClass();
         size = destructibleObject.getSize();
     }
