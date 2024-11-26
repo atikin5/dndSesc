@@ -1,6 +1,7 @@
 package edu.nsu.dnd.controller;
 
 import edu.nsu.dnd.model.dto.responses.CampaignAllResponse;
+import edu.nsu.dnd.model.dto.responses.LocationResponse;
 import edu.nsu.dnd.model.enums.Condition;
 import edu.nsu.dnd.model.enums.DamageMultiplier;
 import edu.nsu.dnd.model.enums.DamageType;
@@ -8,8 +9,11 @@ import edu.nsu.dnd.model.persistent.*;
 import edu.nsu.dnd.model.persistent.embeddable.Abilities;
 import edu.nsu.dnd.model.persistent.embeddable.CharacterDescription;
 import edu.nsu.dnd.repository.*;
+import edu.nsu.dnd.service.LocationService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,14 +30,19 @@ public class TestController {
     private final CreatureRepository creatureRepository;
     private final CharacterRepository characterRepository;
     private final ItemRepository itemRepository;
+    private final LocationRepository locationRepository;
+    private final LocationService locationService;
 
     /**
      * Тестовый метод создания кампании с вложенными объектами
      */
-    @PostMapping("/campaign")
+    @PostMapping("/campaignc")
     public void createCampaign() {
         Campaign campaign = new Campaign("Test campaign");
         Campaign savedCampaign = campaignRepository.save(campaign);
+
+        Location location = new Location();
+        location.setCampaign(savedCampaign);
 
         DestructibleObject destructibleObject = new DestructibleObject();
         destructibleObject.setCampaign(savedCampaign);
@@ -43,7 +52,11 @@ public class TestController {
                 DamageType.COLD, DamageMultiplier.VULNERABILITY));
         destructibleObject.setMaxHp(50);
         destructibleObject.setConditions(List.of(Condition.BLINDED, Condition.CHARMED));
+        destructibleObject.setLocation(location);
+        location.setDestructibleObjects(List.of(destructibleObject));
         destructibleObjectRepository.save(destructibleObject);
+
+        locationRepository.save(location);
 
 
 
@@ -88,6 +101,11 @@ public class TestController {
         characterRepository.save(dndCharacter);
     }
 
-    @GetMapping("/campaign/{id}")
-    public CampaignAllResponse getCampaignById(@PathVariable Long id) {return new CampaignAllResponse(campaignRepository.getReferenceById(id)); }
+//    @GetMapping("/campaign/{id}")
+//    public CampaignAllResponse getCampaignById(@PathVariable Long id) {return new CampaignAllResponse(campaignRepository.getReferenceById(id)); }
+//
+//    @GetMapping("/campaign/{id}/locations")
+//    public Page<LocationResponse> page(@PathVariable Long id, Pageable pageable) {
+//        return locationService.page(id, pageable).map(LocationResponse::new);
+//    }
 }

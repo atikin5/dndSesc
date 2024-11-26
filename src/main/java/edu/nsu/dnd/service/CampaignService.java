@@ -9,13 +9,13 @@ public interface CampaignService {
 
     Campaign get(Long id);
 
-    Campaign create(CampaignRequest request);
+    Campaign create(CampaignRequest campaignRequest);
 
-    Campaign update(Long id, CampaignRequest request);
+    Campaign update(Long id, CampaignRequest campaignRequest);
 
     Page<Campaign> page(Pageable pageable);
 
-    Campaign delete(Long id);
+    void delete(Long id);
 
     Campaign start(Long id);
 

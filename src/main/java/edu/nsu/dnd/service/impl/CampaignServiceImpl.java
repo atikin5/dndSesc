@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @AllArgsConstructor
 @Service
 public class CampaignServiceImpl implements CampaignService {
@@ -25,71 +27,65 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
-    public Campaign create(CampaignRequest request) {
+    public Campaign create(CampaignRequest campaignRequest) {
         Campaign campaign = new Campaign();
-        campaign.setTitle(request.getTitle());
+        Date now = new Date();
+        campaign.setCreatedAt(now);
+        campaign.setTitle(campaignRequest.getTitle());
         campaign.setStatus(CampaignStatus.DRAFT);
-        campaignRepository.save(campaign);
-        return null;
+        return campaignRepository.save(campaign);
     }
 
     @Override
-    public Campaign update(Long id, CampaignRequest request) {
+    public Campaign update(Long id, CampaignRequest campaignRequest) {
         Campaign campaign = get(id);
-        campaign.setTitle(request.getTitle());
-        campaignRepository.save(campaign);
-        return null;
+        campaign.setTitle(campaignRequest.getTitle());
+        return campaignRepository.save(campaign);
     }
 
     @Override
     public Page<Campaign> page(Pageable pageable) {
-        return null;
+        return campaignRepository.findAll(pageable);
     }
 
     @Override
-    public Campaign delete(Long id) {
+    public void delete(Long id) {
         Campaign campaign = get(id);
         campaignRepository.delete(campaign);
-        return null;
     }
 
     @Override
     public Campaign start(Long id) {
         Campaign campaign = get(id);
         campaign.setStatus(CampaignStatus.ACTIVE);
-        campaignRepository.save(campaign);
-        return null;
+        return campaignRepository.save(campaign);
     }
 
     @Override
     public Campaign pause(Long id) {
         Campaign campaign = get(id);
         campaign.setStatus(CampaignStatus.PAUSED);
-        campaignRepository.save(campaign);
-        return null;
+        return campaignRepository.save(campaign);
     }
 
     @Override
     public Campaign resume(Long id) {
         Campaign campaign = get(id);
         campaign.setStatus(CampaignStatus.ACTIVE);
-        campaignRepository.save(campaign);
-        return null;
+        return campaignRepository.save(campaign);
     }
 
     @Override
     public Campaign refresh(Long id) {
         Campaign campaign = get(id);
         campaign.setCode(RandomStringUtils.randomNumeric(6));
-        campaignRepository.save(campaign);
-        return null;
+        return campaignRepository.save(campaign);
     }
 
     @Override
     public Campaign complete(Long id) {
         Campaign campaign = get(id);
         campaign.setStatus(CampaignStatus.COMPLETED);
-        campaignRepository.save(campaign);
-        return null;
+        return campaignRepository.save(campaign);
     }
 }

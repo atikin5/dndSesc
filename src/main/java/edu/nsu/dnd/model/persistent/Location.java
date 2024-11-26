@@ -15,6 +15,8 @@ import java.util.List;
 @Setter
 public class Location extends AbstractPersistable<Long> {
 
+    private String name;
+
     @ManyToOne
     private Campaign campaign;
 
