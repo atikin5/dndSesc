@@ -3,7 +3,6 @@ package edu.nsu.dnd.controller;
 import edu.nsu.dnd.model.dto.requests.CampaignRequest;
 import edu.nsu.dnd.model.dto.responses.CampaignResponse;
 import edu.nsu.dnd.service.CampaignService;
-import edu.nsu.dnd.service.impl.CampaignServiceImpl;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 public class CampaignController {
 
     private final CampaignService campaignService;
-    private final CampaignServiceImpl campaignServiceImpl;
 
     @GetMapping()
         public Page<CampaignResponse> page(Pageable pageable) {
@@ -49,7 +47,7 @@ public class CampaignController {
          */
         @PostMapping("/{id}/start")
         public CampaignResponse start(@PathVariable Long id) {
-            return new CampaignResponse(campaignServiceImpl.start(id));
+            return new CampaignResponse(campaignService.start(id));
         }
 
         /**

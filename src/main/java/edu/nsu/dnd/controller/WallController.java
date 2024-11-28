@@ -1,6 +1,6 @@
 package edu.nsu.dnd.controller;
 
-import edu.nsu.dnd.service.LocationService;
+import edu.nsu.dnd.service.WallService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Transactional
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/location")
-public class LocationController {
+@RequestMapping("/wall")
+public class WallController {
 
-    private final LocationService locationService;
+    private final WallService wallService;
+
 }

@@ -1,7 +1,5 @@
 package edu.nsu.dnd.controller;
 
-import edu.nsu.dnd.model.dto.responses.CampaignAllResponse;
-import edu.nsu.dnd.model.dto.responses.LocationResponse;
 import edu.nsu.dnd.model.enums.Condition;
 import edu.nsu.dnd.model.enums.DamageMultiplier;
 import edu.nsu.dnd.model.enums.DamageType;
@@ -9,11 +7,8 @@ import edu.nsu.dnd.model.persistent.*;
 import edu.nsu.dnd.model.persistent.embeddable.Abilities;
 import edu.nsu.dnd.model.persistent.embeddable.CharacterDescription;
 import edu.nsu.dnd.repository.*;
-import edu.nsu.dnd.service.LocationService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,10 +23,9 @@ public class TestController {
     private final CampaignRepository campaignRepository;
     private final DestructibleObjectRepository destructibleObjectRepository;
     private final CreatureRepository creatureRepository;
-    private final CharacterRepository characterRepository;
+    private final DndCharacterRepository dndCharacterRepository;
     private final ItemRepository itemRepository;
     private final LocationRepository locationRepository;
-    private final LocationService locationService;
 
     /**
      * Тестовый метод создания кампании с вложенными объектами
@@ -98,7 +92,7 @@ public class TestController {
         characterDescription.setFirstName("Test");
         characterDescription.setLastName("DndCharacter");
         dndCharacter.setCharacterDescription(characterDescription);
-        characterRepository.save(dndCharacter);
+        dndCharacterRepository.save(dndCharacter);
     }
 
 //    @GetMapping("/campaign/{id}")
