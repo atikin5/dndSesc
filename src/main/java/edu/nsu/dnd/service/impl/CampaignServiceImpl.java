@@ -60,6 +60,7 @@ public class CampaignServiceImpl implements CampaignService {
         Date now = new Date();
         campaign.setStatus(CampaignStatus.ACTIVE);
         campaign.setStartedAt(now);
+        campaign.setCode(RandomStringUtils.randomNumeric(6));
         return campaignRepository.save(campaign);
     }
 

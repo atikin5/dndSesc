@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @Service
 public class LocationServiceImpl implements LocationService {
+
     private final LocationRepository locationRepository;
     private final CampaignServiceImpl campaignService;
 

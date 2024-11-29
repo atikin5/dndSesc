@@ -1,0 +1,22 @@
+package edu.nsu.dnd.model.enums;
+
+public enum Skill {
+    ATHLETICS,
+    ACROBATICS,
+    SLEIGHTOFHAND,
+    STEALTH,
+    ARCANA,
+    HISTORY,
+    INVESTIGATION,
+    NATURE,
+    RELIGION,
+    ANIMALHANDING,
+    INSIGHT,
+    MEDICINE,
+    PERCEPTION,
+    SURVIVAL,
+    DECEPTION,
+    INTIMIDATION,
+    PERFORMANCE,
+    PERSUASION,
+    }

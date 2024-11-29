@@ -5,6 +5,7 @@ import edu.nsu.dnd.model.enums.DamageMultiplier;
 import edu.nsu.dnd.model.enums.DamageType;
 import edu.nsu.dnd.model.enums.Size;
 import edu.nsu.dnd.model.persistent.DestructibleObject;
+import edu.nsu.dnd.model.persistent.embeddable.Dimensions;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +30,7 @@ public class DestructibleObjectResponse {
     private Map<DamageType, DamageMultiplier> damageMultipliers;
     private Size size;
     private List<Condition> conditions = new ArrayList<>();
+    private Dimensions dimensions;
 
     public DestructibleObjectResponse(DestructibleObject destructibleObject) {
         id = destructibleObject.getId();
@@ -39,5 +41,8 @@ public class DestructibleObjectResponse {
         maxHp = destructibleObject.getMaxHp();
         armorClass = destructibleObject.getArmorClass();
         size = destructibleObject.getSize();
+        dimensions = destructibleObject.getDimensions();
+        damageMultipliers = destructibleObject.getDamageMultipliers();
+        conditions = destructibleObject.getConditions();
     }
 }

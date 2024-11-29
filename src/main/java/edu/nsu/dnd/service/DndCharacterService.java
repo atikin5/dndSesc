@@ -1,10 +1,14 @@
 package edu.nsu.dnd.service;
 
 import edu.nsu.dnd.model.dto.requests.DndCharacterRequest;
+import edu.nsu.dnd.model.dto.requests.SkillCheckRequest;
+import edu.nsu.dnd.model.enums.Ability;
 import edu.nsu.dnd.model.enums.Size;
+import edu.nsu.dnd.model.enums.Skill;
 import edu.nsu.dnd.model.persistent.DndCharacter;
 import edu.nsu.dnd.model.persistent.embeddable.Damage;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
+import edu.nsu.dnd.model.dto.responses.SkillCheckResponse;
 
 import java.util.List;
 
@@ -12,9 +16,9 @@ public interface DndCharacterService {
 
     DndCharacter get(Long id);
 
-    List<DndCharacter> getAllByCampaignId(Long campaignId);
+    List<DndCharacter> getByCampaignId(Long campaignId);
 
-    List<DndCharacter> getAllByLocationId(Long locationId);
+    List<DndCharacter> getByLocationId(Long locationId);
 
     DndCharacter create(DndCharacterRequest dndCharacterRequest);
 
@@ -22,7 +26,9 @@ public interface DndCharacterService {
 
     void delete(Long id);
 
-    DndCharacter replace(Long id, Position position);
+    DndCharacter move(Long id, Position position);
+
+    DndCharacter relocate(Long id, Long locationId);
 
     DndCharacter damage(Long id, Damage damage);
 
@@ -30,6 +36,11 @@ public interface DndCharacterService {
 
     DndCharacter resize(Long id, Size size);
 
-    DndCharacter relocate(Long id, Long locationId);
+    DndCharacter addItem(Long id, Long itemId);
+
+    DndCharacter removeItem(Long id, Long itemId);
+
+    SkillCheckResponse skillCheck(Long id, SkillCheckRequest skillCheckRequest);
+
 
 }

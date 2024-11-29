@@ -1,6 +1,5 @@
 package edu.nsu.dnd.model.persistent.embeddable;
 
-import edu.nsu.dnd.model.enums.DamageType;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,10 +7,8 @@ import lombok.Setter;
 @Embeddable
 @Getter
 @Setter
-public class Damage {
+public class Dimensions {
 
-    private int damage;
-    private Boolean critical;
-    private DamageType damageType;
-
+    private int width;
+    private int height;
 }

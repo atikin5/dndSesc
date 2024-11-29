@@ -1,17 +1,16 @@
 package edu.nsu.dnd.model.persistent.embeddable;
 
-import edu.nsu.dnd.model.enums.DamageType;
+import edu.nsu.dnd.model.enums.Skill;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Embeddable
 @Getter
 @Setter
-public class Damage {
-
-    private int damage;
-    private Boolean critical;
-    private DamageType damageType;
-
+public class Skills {
+    private List<Skill> skills;
 }

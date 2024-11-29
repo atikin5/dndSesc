@@ -1,5 +1,6 @@
 package edu.nsu.dnd.model.persistent.embeddable;
 
+import edu.nsu.dnd.model.enums.Ability;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,28 +17,47 @@ public class Abilities {
     private int wisdom;
     private int charisma;
 
-    public int getStrengthModifier() {
-        return (strength - 10) / 2;
+
+    /** TODO exception
+     */
+
+    public int getAbilityValue(Ability ability) {
+        switch (ability) {
+            case STRENGTH:
+                return strength;
+            case DEXTERITY:
+                return dexterity;
+            case CONSTITUTION:
+                return constitution;
+            case INTELLIGENCE:
+                return intelligence;
+            case WISDOM:
+                return wisdom;
+            case CHARISMA:
+                return charisma;
+        }
+        return 0;
     }
 
-    public int getDexterityModifier() {
-        return (dexterity - 10) / 2;
+
+
+    public int getAbilityModifierValue(Ability ability) {
+        switch (ability) {
+            case STRENGTH:
+                return (strength - 10) / 2;
+            case DEXTERITY:
+                return (dexterity - 10) / 2;
+            case CONSTITUTION:
+                return (constitution - 10) / 2;
+            case INTELLIGENCE:
+                return (intelligence - 10) / 2;
+            case WISDOM:
+                return (wisdom - 10) / 2;
+            case CHARISMA:
+                return (charisma - 10) / 2;
+        }
+        return 0;
     }
 
-    public int getConstitutionModifier() {
-        return (constitution - 10) / 2;
-    }
-
-    public int getIntelligenceModifier() {
-        return (intelligence - 10) / 2;
-    }
-
-    public int getWisdomModifier() {
-        return (wisdom - 10) / 2;
-    }
-
-    public int getCharismaModifier() {
-        return (charisma - 10) / 2;
-    }
 
 }

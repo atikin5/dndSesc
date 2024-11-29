@@ -10,6 +10,8 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Transactional
 @RestController
@@ -20,13 +22,13 @@ public class DestructibleObjectController {
     private final DestructibleObjectService destructibleObjectService;
 
     @GetMapping("/campaign/{campaignId}")
-    public DestructibleObjectResponse getAllDestructibleObjectByCampaignId(@PathVariable Long campaignId) {
-        return destructibleObjectService.getDestructibleObjectsByCampaignId(campaignId).stream().map(DestructibleObjectResponse::new).findFirst().orElse(null);
+    public List<DestructibleObjectResponse> getAllDestructibleObjectByCampaignId(@PathVariable Long campaignId) {
+        return destructibleObjectService.getDestructibleObjectsByCampaignId(campaignId).stream().map(DestructibleObjectResponse::new).toList();
     }
 
     @GetMapping("/location/{locationId}")
-    public DestructibleObjectResponse getAllDestructibleObjectByLocationId(@PathVariable Long locationId) {
-        return destructibleObjectService.getDestructibleObjectsByLocationId(locationId).stream().map(DestructibleObjectResponse::new).findFirst().orElse(null);
+    public List<DestructibleObjectResponse> getAllDestructibleObjectByLocationId(@PathVariable Long locationId) {
+        return destructibleObjectService.getDestructibleObjectsByLocationId(locationId).stream().map(DestructibleObjectResponse::new).toList();
     }
 
     @GetMapping("/{id}")
@@ -49,9 +51,9 @@ public class DestructibleObjectController {
         return new DestructibleObjectResponse(destructibleObjectService.update(id, request));
     }
 
-    @PostMapping("/{id}/replace")
-    public DestructibleObjectResponse replace(@PathVariable Long id, @RequestBody Position position) {
-        return new DestructibleObjectResponse(destructibleObjectService.replace(id, position));
+    @PostMapping("/{id}/move")
+    public DestructibleObjectResponse move(@PathVariable Long id, @RequestBody Position position) {
+        return new DestructibleObjectResponse(destructibleObjectService.move(id, position));
     }
 
     @PostMapping("/{id}/damage")

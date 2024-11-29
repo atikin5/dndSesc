@@ -59,7 +59,7 @@ public class DestructibleObjectServiceImpl implements DestructibleObjectService 
     }
 
     @Override
-    public DestructibleObject replace(Long id, Position position) {
+    public DestructibleObject move(Long id, Position position) {
         DestructibleObject destructibleObject = get(id);
         destructibleObject.setPosition(position);
         return destructibleObjectRepository.save(destructibleObject);
