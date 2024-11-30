@@ -23,12 +23,14 @@ public class DestructibleObjectController {
 
     @GetMapping("/campaign/{campaignId}")
     public List<DestructibleObjectResponse> getAllDestructibleObjectByCampaignId(@PathVariable Long campaignId) {
-        return destructibleObjectService.getDestructibleObjectsByCampaignId(campaignId).stream().map(DestructibleObjectResponse::new).toList();
+        return destructibleObjectService.getByCampaignId(campaignId).stream()
+                .map(DestructibleObjectResponse::new).toList();
     }
 
     @GetMapping("/location/{locationId}")
     public List<DestructibleObjectResponse> getAllDestructibleObjectByLocationId(@PathVariable Long locationId) {
-        return destructibleObjectService.getDestructibleObjectsByLocationId(locationId).stream().map(DestructibleObjectResponse::new).toList();
+        return destructibleObjectService.getByLocationId(locationId).stream()
+                .map(DestructibleObjectResponse::new).toList();
     }
 
     @GetMapping("/{id}")

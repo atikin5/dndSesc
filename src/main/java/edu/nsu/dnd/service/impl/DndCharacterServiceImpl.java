@@ -13,6 +13,7 @@ import edu.nsu.dnd.model.persistent.embeddable.Position;
 import edu.nsu.dnd.model.dto.responses.SkillCheckResponse;
 import edu.nsu.dnd.repository.DndCharacterRepository;
 import edu.nsu.dnd.repository.ItemRepository;
+import edu.nsu.dnd.service.CampaignService;
 import edu.nsu.dnd.service.DndCharacterService;
 import edu.nsu.dnd.service.LocationService;
 import jakarta.persistence.EntityNotFoundException;
@@ -26,6 +27,7 @@ import java.util.List;
 public class DndCharacterServiceImpl implements DndCharacterService {
 
     DndCharacterRepository dndCharacterRepository;
+    CampaignService campaignService;
     LocationService locationService;
     ItemRepository itemRepository;
 
@@ -46,22 +48,24 @@ public class DndCharacterServiceImpl implements DndCharacterService {
     }
 
     @Override
-    public DndCharacter create(DndCharacterRequest dndCharacterRequest) {
+    public DndCharacter create(DndCharacterRequest request) {
         DndCharacter dndCharacter = new DndCharacter();
-        dndCharacter.setType(dndCharacterRequest.getType());
-        dndCharacter.setAbilities(dndCharacterRequest.getAbilities());
-        dndCharacter.setCampaign(dndCharacterRequest.getCampaign());
-        dndCharacter.setRace(dndCharacterRequest.getRace());
+        dndCharacter.setType(request.getType());
+        fillFields(request, dndCharacter);
         return dndCharacterRepository.save(dndCharacter);
     }
 
     @Override
-    public DndCharacter update(Long id, DndCharacterRequest dndCharacterRequest) {
+    public DndCharacter update(Long id, DndCharacterRequest request) {
         DndCharacter dndCharacter = get(id);
-        dndCharacter.setAbilities(dndCharacterRequest.getAbilities());
-        dndCharacter.setCampaign(dndCharacterRequest.getCampaign());
-        dndCharacter.setRace(dndCharacterRequest.getRace());
+        fillFields(request, dndCharacter);
         return dndCharacterRepository.save(dndCharacter);
+    }
+
+    private void fillFields(DndCharacterRequest request, DndCharacter dndCharacter) {
+        dndCharacter.setAbilities(request.getAbilities());
+        dndCharacter.setCampaign(campaignService.get(request.getCampaignId()));
+        dndCharacter.setRace(request.getRace());
     }
 
     @Override

@@ -45,7 +45,7 @@ public class CreatureResponse {
         damageMultipliers = creature.getDamageMultipliers();
         size = creature.getSize();
         conditions = creature.getConditions();
-        backpackItems = creature.getBackpackItems().stream().map(ItemResponse::new).collect(Collectors.toList());
-        equipmentItems = creature.getEquippedItems().stream().map(ItemResponse::new).collect(Collectors.toList());
+        backpackItems = creature.getBackpackItems().stream().map(ItemResponse::new).toList();
+        equipmentItems = creature.getEquippedItems().stream().map(ItemResponse::new).toList();
     }
 }

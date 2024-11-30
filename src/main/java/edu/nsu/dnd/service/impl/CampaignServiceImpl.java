@@ -28,12 +28,7 @@ public class CampaignServiceImpl implements CampaignService {
 
     @Override
     public Campaign create(CampaignRequest campaignRequest) {
-        Campaign campaign = new Campaign();
-        Date now = new Date();
-        campaign.setCreatedAt(now);
-        campaign.setTitle(campaignRequest.getTitle());
-        campaign.setStatus(CampaignStatus.DRAFT);
-        return campaignRepository.save(campaign);
+        return campaignRepository.save(new Campaign(campaignRequest.getTitle()));
     }
 
     @Override
@@ -57,9 +52,8 @@ public class CampaignServiceImpl implements CampaignService {
     @Override
     public Campaign start(Long id) {
         Campaign campaign = get(id);
-        Date now = new Date();
         campaign.setStatus(CampaignStatus.ACTIVE);
-        campaign.setStartedAt(now);
+        campaign.setStartedAt(new Date());
         campaign.setCode(RandomStringUtils.randomNumeric(6));
         return campaignRepository.save(campaign);
     }
@@ -88,9 +82,8 @@ public class CampaignServiceImpl implements CampaignService {
     @Override
     public Campaign complete(Long id) {
         Campaign campaign = get(id);
-        Date now = new Date();
         campaign.setStatus(CampaignStatus.COMPLETED);
-        campaign.setCompletedAt(now);
+        campaign.setCompletedAt(new Date());
         return campaignRepository.save(campaign);
     }
 }

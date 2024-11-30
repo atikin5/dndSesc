@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class TileRequest {
     private String type;
-    private Campaign campaign;
-    private Location location;
+    private Long campaignId;
+    private Long locationId;
     private Position position;
 }

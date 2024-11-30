@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class DestructibleObjectRequest {
     private String type;
-    private Campaign campaign;
+    private Long campaignId;
     private Dimensions dimensions;
 }

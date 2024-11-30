@@ -1,7 +1,7 @@
 package edu.nsu.dnd.controller;
 
 import edu.nsu.dnd.model.dto.requests.CampaignRequest;
-import edu.nsu.dnd.model.dto.responses.CampaignResponse;
+import edu.nsu.dnd.model.dto.responses.CampaignShortResponse;
 import edu.nsu.dnd.service.CampaignService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -20,23 +20,23 @@ public class CampaignController {
     private final CampaignService campaignService;
 
     @GetMapping()
-        public Page<CampaignResponse> page(Pageable pageable) {
-            return campaignService.page(pageable).map(CampaignResponse::new);
+        public Page<CampaignShortResponse> page(Pageable pageable) {
+            return campaignService.page(pageable).map(CampaignShortResponse::new);
         }
 
         @GetMapping("/{id}")
-        public CampaignResponse get(@PathVariable Long id) {
-            return new CampaignResponse(campaignService.get(id));
+        public CampaignShortResponse get(@PathVariable Long id) {
+            return new CampaignShortResponse(campaignService.get(id));
         }
 
         @PostMapping()
-        public CampaignResponse create(@RequestBody CampaignRequest request) {
-            return new CampaignResponse(campaignService.create(request));
+        public CampaignShortResponse create(@RequestBody CampaignRequest request) {
+            return new CampaignShortResponse(campaignService.create(request));
         }
 
         @PutMapping("/{id}")
-        public CampaignResponse update(@PathVariable Long id, @RequestBody CampaignRequest request) {
-            return new CampaignResponse(campaignService.update(id, request));
+        public CampaignShortResponse update(@PathVariable Long id, @RequestBody CampaignRequest request) {
+            return new CampaignShortResponse(campaignService.update(id, request));
         }
 
         /**
@@ -46,8 +46,8 @@ public class CampaignController {
          * @return данные компании.
          */
         @PostMapping("/{id}/start")
-        public CampaignResponse start(@PathVariable Long id) {
-            return new CampaignResponse(campaignService.start(id));
+        public CampaignShortResponse start(@PathVariable Long id) {
+            return new CampaignShortResponse(campaignService.start(id));
         }
 
         /**
@@ -57,8 +57,8 @@ public class CampaignController {
          * @return данные компании.
          */
         @PostMapping("/{id}/complete")
-        public CampaignResponse complete(@PathVariable Long id) {
-            return new CampaignResponse(campaignService.complete(id));
+        public CampaignShortResponse complete(@PathVariable Long id) {
+            return new CampaignShortResponse(campaignService.complete(id));
         }
 
         /**
@@ -68,8 +68,8 @@ public class CampaignController {
          * @return данные компании.
          */
         @PostMapping("/{id}/refresh")
-        public CampaignResponse refresh(@PathVariable Long id) {
-            return new CampaignResponse(campaignService.refresh(id));
+        public CampaignShortResponse refresh(@PathVariable Long id) {
+            return new CampaignShortResponse(campaignService.refresh(id));
         }
 
         @ResponseStatus(HttpStatus.NO_CONTENT)

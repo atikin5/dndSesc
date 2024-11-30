@@ -11,9 +11,9 @@ import java.util.List;
 public interface DestructibleObjectService {
     DestructibleObject get(Long id);
 
-    List<DestructibleObject> getDestructibleObjectsByLocationId(Long locationId);
+    List<DestructibleObject> getByLocationId(Long locationId);
 
-    List<DestructibleObject> getDestructibleObjectsByCampaignId(Long campaignId);
+    List<DestructibleObject> getByCampaignId(Long campaignId);
 
     DestructibleObject create(DestructibleObjectRequest destructibleObjectRequest);
 

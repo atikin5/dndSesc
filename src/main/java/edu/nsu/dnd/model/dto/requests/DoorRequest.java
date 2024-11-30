@@ -9,8 +9,8 @@ import lombok.Data;
 @Data
 public class DoorRequest {
     private String type;
-    private Campaign campaign;
-    private Location location;
+    private Long campaignId;
+    private Long locationId;
     private Position position;
     private Orientation orientation;
 }

@@ -75,6 +75,6 @@ public class DndCharacterController {
 
     @PostMapping("/{id}/skill-check")
     public SkillCheckResponse skillCheck(@PathVariable Long id, @RequestBody SkillCheckRequest request) {
-        return new SkillCheckResponse(dndCharacterService.skillCheck(id, request))
+        return dndCharacterService.skillCheck(id, request);
     }
 }

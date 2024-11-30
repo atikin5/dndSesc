@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class LocationResponse {
     private Long id;
     private String name;
+
     public LocationResponse(Location location) {
         id = location.getId();
     }

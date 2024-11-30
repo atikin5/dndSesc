@@ -51,8 +51,8 @@ public class DndCharacterResponse {
         damageMultipliers = dndCharacter.getDamageMultipliers();
         size = dndCharacter.getSize();
         conditions = dndCharacter.getConditions();
-        backpackItems = dndCharacter.getBackpackItems().stream().map(ItemResponse::new).collect(Collectors.toList());
-        equipmentItems = dndCharacter.getEquippedItems().stream().map(ItemResponse::new).collect(Collectors.toList());
+        backpackItems = dndCharacter.getBackpackItems().stream().map(ItemResponse::new).toList();
+        equipmentItems = dndCharacter.getEquippedItems().stream().map(ItemResponse::new).toList();
         characterClasses = dndCharacter.getCharacterClasses();
         characterDescription = dndCharacter.getCharacterDescription();
         reviveSuccesses = dndCharacter.getReviveSuccesses();

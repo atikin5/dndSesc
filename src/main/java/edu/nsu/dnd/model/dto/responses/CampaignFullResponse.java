@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CampaignAllResponse {
+public class CampaignFullResponse {
     private Long id;
     private String code;
     private CampaignStatus status;
@@ -27,7 +27,7 @@ public class CampaignAllResponse {
     private List<DestructibleObjectResponse> destructibleObjects = new ArrayList<>();
     private List<LocationResponse> locations = new ArrayList<>();
 
-    public CampaignAllResponse(Campaign campaign) {
+    public CampaignFullResponse(Campaign campaign) {
         id = campaign.getId();
         code = campaign.getCode();
         status = campaign.getStatus();
@@ -35,9 +35,9 @@ public class CampaignAllResponse {
         createdAt = campaign.getCreatedAt();
         startedAt = campaign.getStartedAt();
         completedAt = campaign.getCompletedAt();
-        dndCharacters = campaign.getDndCharacters().stream().map(DndCharacterResponse::new).collect(Collectors.toList());
-        creatures = campaign.getCreatures().stream().map(CreatureResponse::new).collect(Collectors.toList());
-        destructibleObjects = campaign.getDestructibleObjects().stream().map(DestructibleObjectResponse::new).collect(Collectors.toList());
-        locations = campaign.getLocations().stream().map(LocationResponse::new).collect(Collectors.toList());
+        dndCharacters = campaign.getDndCharacters().stream().map(DndCharacterResponse::new).toList();
+        creatures = campaign.getCreatures().stream().map(CreatureResponse::new).toList();
+        destructibleObjects = campaign.getDestructibleObjects().stream().map(DestructibleObjectResponse::new).toList();
+        locations = campaign.getLocations().stream().map(LocationResponse::new).toList();
     }
 }

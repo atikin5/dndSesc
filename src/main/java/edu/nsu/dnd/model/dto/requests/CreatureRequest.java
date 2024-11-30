@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class CreatureRequest {
     private String type;
-    private Campaign campaign;
+    private Long campaignId;
     private Abilities abilities;
     private Race race;
 

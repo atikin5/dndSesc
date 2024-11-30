@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CampaignResponse {
+public class CampaignShortResponse {
     private Long id;
     private String code;
     private CampaignStatus status;
@@ -20,7 +20,7 @@ public class CampaignResponse {
     private Date startedAt;
     private Date completedAt;
 
-    public CampaignResponse(Campaign campaign) {
+    public CampaignShortResponse(Campaign campaign) {
         id = campaign.getId();
         code = campaign.getCode();
         status = campaign.getStatus();

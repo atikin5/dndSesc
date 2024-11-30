@@ -8,18 +8,21 @@ import edu.nsu.dnd.model.persistent.DestructibleObject;
 import edu.nsu.dnd.model.persistent.embeddable.Damage;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
 import edu.nsu.dnd.repository.DestructibleObjectRepository;
+import edu.nsu.dnd.service.CampaignService;
 import edu.nsu.dnd.service.DestructibleObjectService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.CompletionService;
 
 @AllArgsConstructor
 @Service
 public class DestructibleObjectServiceImpl implements DestructibleObjectService {
 
     private final DestructibleObjectRepository destructibleObjectRepository;
+    private final CampaignService campaignService;
 
     @Override
     public DestructibleObject get(Long id) {
@@ -31,7 +34,8 @@ public class DestructibleObjectServiceImpl implements DestructibleObjectService 
     public DestructibleObject create(DestructibleObjectRequest destructibleObjectRequest) {
         DestructibleObject destructibleObject = new DestructibleObject();
         destructibleObject.setType(destructibleObjectRequest.getType());
-        destructibleObject.setCampaign(destructibleObjectRequest.getCampaign());
+        destructibleObject.setCampaign(campaignService.get(destructibleObjectRequest.getCampaignId()));
+        // TODO Dimesions?
         return destructibleObjectRepository.save(destructibleObject);
     }
 
@@ -39,16 +43,17 @@ public class DestructibleObjectServiceImpl implements DestructibleObjectService 
     public DestructibleObject update(Long id, DestructibleObjectRequest destructibleObjectRequest) {
         DestructibleObject destructibleObject = get(id);
         destructibleObject.setType(destructibleObjectRequest.getType());
+        // TODO Other fields?
         return destructibleObjectRepository.save(destructibleObject);
     }
 
     @Override
-    public List<DestructibleObject> getDestructibleObjectsByLocationId(Long locationId) {
+    public List<DestructibleObject> getByLocationId(Long locationId) {
         return destructibleObjectRepository.findByLocationId(locationId);
     }
 
     @Override
-    public List<DestructibleObject> getDestructibleObjectsByCampaignId(Long campaignId) {
+    public List<DestructibleObject> getByCampaignId(Long campaignId) {
         return destructibleObjectRepository.findByCampaignId(campaignId);
     }
 
