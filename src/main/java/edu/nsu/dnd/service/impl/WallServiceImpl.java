@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class WallServiceImpl implements WallService {
 
-    private final WallRepository wallRepository;
+    WallRepository wallRepository;
 }

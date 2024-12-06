@@ -3,7 +3,7 @@ package edu.nsu.dnd.service;
 import edu.nsu.dnd.model.dto.requests.DestructibleObjectRequest;
 import edu.nsu.dnd.model.enums.Size;
 import edu.nsu.dnd.model.persistent.DestructibleObject;
-import edu.nsu.dnd.model.persistent.embeddable.Damage;
+import edu.nsu.dnd.model.dto.requests.DamageRequest;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
 
 import java.util.List;
@@ -23,7 +23,11 @@ public interface DestructibleObjectService {
 
     DestructibleObject move(Long id, Position position);
 
-    DestructibleObject damage(Long id, Damage damage);
+    DestructibleObject relocate(Long id, Long locationId);
+
+    Boolean takeHit(Long id, int hit);
+
+    DestructibleObject damage(Long id, DamageRequest damageRequest);
 
     DestructibleObject heal(Long id, int healAmount);
 

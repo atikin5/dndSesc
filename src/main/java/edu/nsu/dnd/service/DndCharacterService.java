@@ -2,11 +2,9 @@ package edu.nsu.dnd.service;
 
 import edu.nsu.dnd.model.dto.requests.DndCharacterRequest;
 import edu.nsu.dnd.model.dto.requests.SkillCheckRequest;
-import edu.nsu.dnd.model.enums.Ability;
 import edu.nsu.dnd.model.enums.Size;
-import edu.nsu.dnd.model.enums.Skill;
 import edu.nsu.dnd.model.persistent.DndCharacter;
-import edu.nsu.dnd.model.persistent.embeddable.Damage;
+import edu.nsu.dnd.model.dto.requests.DamageRequest;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
 import edu.nsu.dnd.model.dto.responses.SkillCheckResponse;
 
@@ -30,7 +28,11 @@ public interface DndCharacterService {
 
     DndCharacter relocate(Long id, Long locationId);
 
-    DndCharacter damage(Long id, Damage damage);
+    int giveHit(Long id, int d20hit, Long itemId);
+
+    Boolean takeHit(Long id, int hit);
+
+    DndCharacter damage(Long id, DamageRequest damageRequest);
 
     DndCharacter heal(Long id, int healAmount);
 
@@ -41,6 +43,5 @@ public interface DndCharacterService {
     DndCharacter removeItem(Long id, Long itemId);
 
     SkillCheckResponse skillCheck(Long id, SkillCheckRequest skillCheckRequest);
-
 
 }

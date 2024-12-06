@@ -15,6 +15,7 @@ public abstract class MovableObject extends CampaignObject {
     @ManyToOne(fetch = FetchType.LAZY)
     private Location location;
 
+
     public void changeLocation(Location location) {
         this.location = location;
     }

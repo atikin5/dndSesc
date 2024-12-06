@@ -2,27 +2,27 @@ package edu.nsu.dnd.service.impl;
 
 import edu.nsu.dnd.model.dto.requests.DestructibleObjectRequest;
 import edu.nsu.dnd.model.enums.DamageMultiplier;
-import edu.nsu.dnd.model.enums.DamageType;
 import edu.nsu.dnd.model.enums.Size;
 import edu.nsu.dnd.model.persistent.DestructibleObject;
-import edu.nsu.dnd.model.persistent.embeddable.Damage;
+import edu.nsu.dnd.model.dto.requests.DamageRequest;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
 import edu.nsu.dnd.repository.DestructibleObjectRepository;
 import edu.nsu.dnd.service.CampaignService;
 import edu.nsu.dnd.service.DestructibleObjectService;
+import edu.nsu.dnd.service.LocationService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.CompletionService;
 
 @AllArgsConstructor
 @Service
 public class DestructibleObjectServiceImpl implements DestructibleObjectService {
 
-    private final DestructibleObjectRepository destructibleObjectRepository;
-    private final CampaignService campaignService;
+    DestructibleObjectRepository destructibleObjectRepository;
+    CampaignService campaignService;
+    LocationService locationService;
 
     @Override
     public DestructibleObject get(Long id) {
@@ -35,7 +35,7 @@ public class DestructibleObjectServiceImpl implements DestructibleObjectService 
         DestructibleObject destructibleObject = new DestructibleObject();
         destructibleObject.setType(destructibleObjectRequest.getType());
         destructibleObject.setCampaign(campaignService.get(destructibleObjectRequest.getCampaignId()));
-        // TODO Dimesions?
+        // TODO Dimensions?
         return destructibleObjectRepository.save(destructibleObject);
     }
 
@@ -71,22 +71,37 @@ public class DestructibleObjectServiceImpl implements DestructibleObjectService 
     }
 
     @Override
-    public DestructibleObject damage(Long id, Damage damage) {
+    public DestructibleObject relocate(Long id, Long locationId) {
         DestructibleObject destructibleObject = get(id);
-        if (destructibleObject.getDamageMultipliers().containsKey(damage.getDamageType())) {
-            switch (destructibleObject.getDamageMultipliers().get(damage.getDamageType())) {
+        destructibleObject.setLocation(locationService.get(locationId));
+        Position position = new Position();
+        destructibleObject.setPosition(position);
+        return destructibleObjectRepository.save(destructibleObject);
+    }
+
+    @Override
+    public Boolean takeHit(Long id, int hit) {
+        DestructibleObject destructibleObject = get(id);
+        return destructibleObject.getArmorClass() <= hit;
+    }
+
+    @Override
+    public DestructibleObject damage(Long id, DamageRequest damageRequest) {
+        DestructibleObject destructibleObject = get(id);
+        if (destructibleObject.getDamageMultipliers().containsKey(damageRequest.getDamageType())) {
+            switch (destructibleObject.getDamageMultipliers().get(damageRequest.getDamageType())) {
                 case DamageMultiplier.IMMUNITY -> {
-                    destructibleObject.inflictDamage(0, damage.getCritical());
+                    destructibleObject.inflictDamage(0, damageRequest.getCritical());
                 }
                 case DamageMultiplier.VULNERABILITY -> {
-                    destructibleObject.inflictDamage(damage.getDamage() * 2, damage.getCritical());
+                    destructibleObject.inflictDamage(damageRequest.getDamage() * 2, damageRequest.getCritical());
                 }
                 case DamageMultiplier.RESISTANCE -> {
-                    destructibleObject.inflictDamage(damage.getDamage() / 2, damage.getCritical());
+                    destructibleObject.inflictDamage(damageRequest.getDamage() / 2, damageRequest.getCritical());
                 }
             }
         } else {
-            destructibleObject.inflictDamage(damage.getDamage(), damage.getCritical());
+            destructibleObject.inflictDamage(damageRequest.getDamage(), damageRequest.getCritical());
         }
         return destructibleObjectRepository.save(destructibleObject);
     }

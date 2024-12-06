@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class WebSocketMessagingServiceImpl implements WebSocketMessagingService {
 
-    private final SimpMessagingTemplate messagingTemplate;
+    SimpMessagingTemplate messagingTemplate;
 
     @Override
     public void sendMessage(String sessionNumber, Object message) {

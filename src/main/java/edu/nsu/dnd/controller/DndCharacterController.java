@@ -5,7 +5,7 @@ import edu.nsu.dnd.model.dto.requests.SkillCheckRequest;
 import edu.nsu.dnd.model.dto.responses.DndCharacterResponse;
 import edu.nsu.dnd.model.dto.responses.SkillCheckResponse;
 import edu.nsu.dnd.model.enums.Size;
-import edu.nsu.dnd.model.persistent.embeddable.Damage;
+import edu.nsu.dnd.model.dto.requests.DamageRequest;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
 import edu.nsu.dnd.service.DndCharacterService;
 import jakarta.transaction.Transactional;
@@ -54,8 +54,8 @@ public class DndCharacterController {
     }
 
     @PostMapping("/{id}/damage")
-    public DndCharacterResponse damage(@PathVariable Long id, @RequestBody Damage damage) {
-        return new DndCharacterResponse(dndCharacterService.damage(id, damage));
+    public DndCharacterResponse damage(@PathVariable Long id, @RequestBody DamageRequest damageRequest) {
+        return new DndCharacterResponse(dndCharacterService.damage(id, damageRequest));
     }
 
     @PostMapping("/{id}/heal")

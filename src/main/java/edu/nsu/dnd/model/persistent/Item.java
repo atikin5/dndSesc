@@ -1,7 +1,9 @@
 package edu.nsu.dnd.model.persistent;
 
+import edu.nsu.dnd.model.enums.Ability;
 import edu.nsu.dnd.model.enums.DamageType;
 import edu.nsu.dnd.model.persistent.base.MovableObject;
+import edu.nsu.dnd.model.persistent.embeddable.ItemPosition;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +23,10 @@ public class Item extends MovableObject {
 
     private String name;
     private String description;
-    private Boolean handPosition;
+    private ItemPosition itemPosition;
+    private boolean melee;
+    private int bonus;
+    private Ability attackAbility;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)

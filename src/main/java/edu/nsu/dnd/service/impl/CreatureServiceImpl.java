@@ -1,11 +1,20 @@
 package edu.nsu.dnd.service.impl;
 
+import edu.nsu.dnd.model.dto.requests.CreatureRequest;
+import edu.nsu.dnd.model.dto.requests.SkillCheckRequest;
+import edu.nsu.dnd.model.dto.responses.SkillCheckResponse;
+import edu.nsu.dnd.model.enums.DamageMultiplier;
 import edu.nsu.dnd.model.enums.Size;
 import edu.nsu.dnd.model.persistent.Creature;
-import edu.nsu.dnd.model.persistent.embeddable.Damage;
+import edu.nsu.dnd.model.dto.requests.DamageRequest;
+import edu.nsu.dnd.model.persistent.Item;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
 import edu.nsu.dnd.repository.CreatureRepository;
+import edu.nsu.dnd.service.CampaignService;
 import edu.nsu.dnd.service.CreatureService;
+import edu.nsu.dnd.service.ItemService;
+import edu.nsu.dnd.service.LocationService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,65 +24,169 @@ import java.util.List;
 @Service
 public class CreatureServiceImpl implements CreatureService {
 
-    private final CreatureRepository creatureRepository;
+    CreatureRepository creatureRepository;
+    CampaignService campaignService;
+    ItemService itemService;
+    LocationService locationService;
 
     @Override
     public Creature get(Long id) {
-        return null;
+        return creatureRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Creature with id " + id + " not found"));
     }
 
     @Override
     public List<Creature> getByCampaignId(Long campaignId) {
-        return List.of();
+        return creatureRepository.findByCampaignId(campaignId);
     }
 
     @Override
     public List<Creature> getByLocationId(Long locationId) {
-        return List.of();
+        return creatureRepository.findByLocationId(locationId);
+    }
+
+    private void fillFields(CreatureRequest request, Creature creature) {
+        creature.setAbilities(request.getAbilities());
+        creature.setCampaign(campaignService.get(request.getCampaignId()));
+        creature.setRace(request.getRace());
     }
 
     @Override
-    public Creature create(Creature creature) {
-        return null;
+    public Creature create(CreatureRequest request) {
+        Creature creature = new Creature();
+        creature.setType(request.getType());
+        fillFields(request, creature);
+        return creatureRepository.save(creature);
     }
 
     @Override
-    public Creature update(Long id, Creature creature) {
-        return null;
+    public Creature update(Long id, CreatureRequest request) {
+        Creature creature = get(id);
+        fillFields(request, creature);
+        return creatureRepository.save(creature);
     }
 
     @Override
     public void delete(Long id) {
-
+        creatureRepository.deleteById(id);
     }
 
     @Override
     public Creature move(Long id, Position position) {
-        return null;
+        Creature creature = get(id);
+        creature.setPosition(position);
+        return creatureRepository.save(creature);
     }
 
     @Override
     public Creature relocate(Long id, Long locationId) {
-        return null;
+        Creature creature = get(id);
+        creature.setLocation(locationService.get(locationId));
+        Position position = new Position();
+        creature.setPosition(position);
+        return creatureRepository.save(creature);
     }
 
     @Override
-    public Creature damage(Long id, Damage damage) {
-        return null;
+    public int giveHit(Long id, int d20hit, Long itemId) {
+        Creature creature = get(id);
+        Item item = itemService.get(itemId);
+        int abilityBonus = creature.getAbilities().getAbilityModifierValue(item.getAttackAbility());
+        return d20hit + abilityBonus + item.getBonus() + creature.getProficiencyBonus();
+    }
+
+    @Override
+    public Boolean takeHit(Long id, int hit) {
+        Creature creature = get(id);
+        return creature.getArmorClass() <= hit;
+    }
+
+    @Override
+    public Creature damage(Long id, DamageRequest damageRequest) {
+        Creature creature = get(id);
+        if (creature.getDamageMultipliers().containsKey(damageRequest.getDamageType())) {
+            switch (creature.getDamageMultipliers().get(damageRequest.getDamageType())) {
+                case DamageMultiplier.IMMUNITY -> {
+                    creature.inflictDamage(0, damageRequest.getCritical());
+                }
+                case DamageMultiplier.VULNERABILITY -> {
+                    creature.inflictDamage(damageRequest.getDamage() * 2, damageRequest.getCritical());
+                }
+                case DamageMultiplier.RESISTANCE -> {
+                    creature.inflictDamage(damageRequest.getDamage() / 2, damageRequest.getCritical());
+                }
+            }
+        } else {
+            creature.inflictDamage(damageRequest.getDamage(), damageRequest.getCritical());
+        }
+        return creatureRepository.save(creature);
     }
 
     @Override
     public Creature heal(Long id, int healAmount) {
-        return null;
+        Creature creature = get(id);
+        creature.healDamage(healAmount);
+        return creatureRepository.save(creature);
     }
 
     @Override
     public Creature resize(Long id, Size size) {
-        return null;
+        Creature creature = get(id);
+        creature.setSize(size);
+        return creatureRepository.save(creature);
     }
 
     @Override
     public Creature addItem(Long id, Long itemId) {
-        return null;
+        Creature creature = get(id);
+        Item item = itemService.get(itemId);
+        creature.getBackpackItems().add(item);
+        return creatureRepository.save(creature);
     }
+
+    @Override
+    public Creature removeItem(Long id, Long itemId) {
+        Creature creature = get(id);
+        Item item = itemService.get(itemId);
+        if (creature.getBackpackItems().contains(item)) {
+            creature.getBackpackItems().remove(item);
+        }
+        if (creature.getEquippedItems().contains(item)) {
+            creature.getEquippedItems().remove(item);
+        }
+        return creatureRepository.save(creature);
+    }
+
+    @Override
+    public SkillCheckResponse skillCheck(Long id, SkillCheckRequest skillCheckRequest) {
+        Creature creature = get(id);
+        SkillCheckResponse skillCheckResponse = new SkillCheckResponse();
+        if (skillCheckRequest.getD20Value() == 1) {
+            skillCheckResponse.setValue(1);
+            skillCheckResponse.setChecked(false);
+            return skillCheckResponse;
+        }
+
+        if (skillCheckRequest.getD20Value() == 20) {
+            skillCheckResponse.setValue(20);
+            skillCheckResponse.setChecked(true);
+            return skillCheckResponse;
+        }
+
+        if (creature.getSkills().getProficiencySkills().contains(skillCheckRequest.getSkill())) {
+            skillCheckResponse.setValue(
+                    skillCheckRequest.getD20Value()
+                            + (int) Math.floor(creature.getProficiencyBonus() * skillCheckRequest.getProficiencyBonusMultiplier())
+                            + creature.getAbilities().getAbilityModifierValue(skillCheckRequest.getAbility()));
+            skillCheckResponse.setChecked(null);
+            return skillCheckResponse;
+        }
+
+        skillCheckResponse.setValue(
+                skillCheckRequest.getD20Value()
+                        + creature.getAbilities().getAbilityModifierValue(skillCheckRequest.getAbility()));
+        skillCheckResponse.setChecked(null);
+        return skillCheckResponse;
+    }
+
 }

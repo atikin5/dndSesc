@@ -3,7 +3,7 @@ package edu.nsu.dnd.controller;
 import edu.nsu.dnd.model.dto.requests.DestructibleObjectRequest;
 import edu.nsu.dnd.model.dto.responses.DestructibleObjectResponse;
 import edu.nsu.dnd.model.enums.Size;
-import edu.nsu.dnd.model.persistent.embeddable.Damage;
+import edu.nsu.dnd.model.dto.requests.DamageRequest;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
 import edu.nsu.dnd.service.DestructibleObjectService;
 import jakarta.transaction.Transactional;
@@ -59,8 +59,8 @@ public class DestructibleObjectController {
     }
 
     @PostMapping("/{id}/damage")
-    public DestructibleObjectResponse damage(@PathVariable Long id, @RequestBody Damage damage) {
-        return new DestructibleObjectResponse(destructibleObjectService.damage(id, damage));
+    public DestructibleObjectResponse damage(@PathVariable Long id, @RequestBody DamageRequest damageRequest) {
+        return new DestructibleObjectResponse(destructibleObjectService.damage(id, damageRequest));
     }
 
     @PostMapping("/{id}/heal")

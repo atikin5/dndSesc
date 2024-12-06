@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class LocationServiceImpl implements LocationService {
 
-    private final LocationRepository locationRepository;
-    private final CampaignServiceImpl campaignService;
+    LocationRepository locationRepository;
+    CampaignServiceImpl campaignService;
 
     @Override
     public Location get(Long id) {

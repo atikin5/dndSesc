@@ -2,6 +2,7 @@ package edu.nsu.dnd.model.dto.responses;
 
 import edu.nsu.dnd.model.enums.DamageType;
 import edu.nsu.dnd.model.persistent.Item;
+import edu.nsu.dnd.model.persistent.embeddable.ItemPosition;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +19,7 @@ public class ItemResponse {
     private Position position;
     private String name;
     private String description;
-    private Boolean handPosition;
+    private ItemPosition itemPosition;
     private List<DamageType> commonDamage;
     private List<DamageType> optionalDamage;
     private List<DamageType> missDamage;
@@ -29,7 +30,7 @@ public class ItemResponse {
         position = item.getPosition();
         name = item.getName();
         description = item.getDescription();
-        handPosition = item.getHandPosition();
+        itemPosition = item.getItemPosition();
         commonDamage = item.getCommonDamage();
         optionalDamage = item.getOptionalDamage();
         missDamage = item.getMissDamage();

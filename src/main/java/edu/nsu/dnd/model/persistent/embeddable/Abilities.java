@@ -22,41 +22,27 @@ public class Abilities {
      */
 
     public int getAbilityValue(Ability ability) {
-        switch (ability) {
-            case STRENGTH:
-                return strength;
-            case DEXTERITY:
-                return dexterity;
-            case CONSTITUTION:
-                return constitution;
-            case INTELLIGENCE:
-                return intelligence;
-            case WISDOM:
-                return wisdom;
-            case CHARISMA:
-                return charisma;
-        }
-        return 0;
+        return switch (ability) {
+            case STRENGTH -> strength;
+            case DEXTERITY -> dexterity;
+            case CONSTITUTION -> constitution;
+            case INTELLIGENCE -> intelligence;
+            case WISDOM -> wisdom;
+            case CHARISMA -> charisma;
+        };
     }
 
 
 
     public int getAbilityModifierValue(Ability ability) {
-        switch (ability) {
-            case STRENGTH:
-                return (strength - 10) / 2;
-            case DEXTERITY:
-                return (dexterity - 10) / 2;
-            case CONSTITUTION:
-                return (constitution - 10) / 2;
-            case INTELLIGENCE:
-                return (intelligence - 10) / 2;
-            case WISDOM:
-                return (wisdom - 10) / 2;
-            case CHARISMA:
-                return (charisma - 10) / 2;
-        }
-        return 0;
+        return switch (ability) {
+            case STRENGTH -> (strength - 10) / 2;
+            case DEXTERITY -> (dexterity - 10) / 2;
+            case CONSTITUTION -> (constitution - 10) / 2;
+            case INTELLIGENCE -> (intelligence - 10) / 2;
+            case WISDOM -> (wisdom - 10) / 2;
+            case CHARISMA -> (charisma - 10) / 2;
+        };
     }
 
 

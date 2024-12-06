@@ -1,4 +1,4 @@
-package edu.nsu.dnd.model.persistent.embeddable;
+package edu.nsu.dnd.model.dto.requests;
 
 import edu.nsu.dnd.model.enums.DamageType;
 import jakarta.persistence.Embeddable;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Embeddable
 @Getter
 @Setter
-public class Damage {
+public class DamageRequest {
 
     private int damage;
     private Boolean critical;
