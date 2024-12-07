@@ -24,10 +24,10 @@ import java.util.List;
 @Service
 public class CreatureServiceImpl implements CreatureService {
 
-    CreatureRepository creatureRepository;
-    CampaignService campaignService;
-    ItemService itemService;
-    LocationService locationService;
+    private final CreatureRepository creatureRepository;
+    private final CampaignService campaignService;
+    private final ItemService itemService;
+    private final LocationService locationService;
 
     @Override
     public Creature get(Long id) {

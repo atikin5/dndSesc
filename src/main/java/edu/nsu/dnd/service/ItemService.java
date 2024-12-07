@@ -18,7 +18,13 @@ public interface ItemService {
 
     List<Item> getByLocationId(Long locationId);
 
-    List<Item> getByOwnerId(Long ownerId);
+    List<Item> getByDndCharacterBackpackId(Long characterId);
+
+    List<Item> getByDndCharacterEquipmentId(Long characterId);
+
+    List<Item> getByCreatureBackpackId(Long creatureId);
+
+    List<Item> getByCreatureEquipmentId(Long creatureId);
 
     void delete(Long id);
 

@@ -1,5 +1,6 @@
 package edu.nsu.dnd.service.impl;
 
+import edu.nsu.dnd.repository.TileRepository;
 import edu.nsu.dnd.service.TileService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -7,4 +8,6 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @Service
 public class TileServiceImpl implements TileService {
+
+    private final TileRepository tileRepository;
 }

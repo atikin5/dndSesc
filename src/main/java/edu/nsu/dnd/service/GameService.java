@@ -60,10 +60,8 @@ public interface GameService {
     DestructibleObject relocateDestructibleObject(Long campaignId, Long destructibleObjectId, Long locationId);
 
 
-    Item moveItem(Long campaignId, Long itemId, Long characterId, List<Position> path);
+    Item moveItem(Long campaignId, Long itemId, List<Position> path);
 
     Item relocateItem(Long campaignId, Long itemId, Long locationId);
-
-
 
 }

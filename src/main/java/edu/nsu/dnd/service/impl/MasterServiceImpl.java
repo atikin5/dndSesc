@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MasterServiceImpl implements MasterService {
 
-    MasterRepository masterRepository;
+    private final MasterRepository masterRepository;
 
     @Override
     public Master get(Long id) {

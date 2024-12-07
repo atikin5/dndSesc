@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class DoorServiceImpl implements DoorService {
 
-    DoorRepository doorRepository;
+    private final DoorRepository doorRepository;
 }

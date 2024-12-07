@@ -20,9 +20,9 @@ import java.util.List;
 @Service
 public class DestructibleObjectServiceImpl implements DestructibleObjectService {
 
-    DestructibleObjectRepository destructibleObjectRepository;
-    CampaignService campaignService;
-    LocationService locationService;
+    private final DestructibleObjectRepository destructibleObjectRepository;
+    private final CampaignService campaignService;
+    private final LocationService locationService;
 
     @Override
     public DestructibleObject get(Long id) {

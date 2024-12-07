@@ -18,7 +18,7 @@ import java.util.Date;
 @Service
 public class CampaignServiceImpl implements CampaignService {
 
-    CampaignRepository campaignRepository;
+    private final CampaignRepository campaignRepository;
 
     @Override
     public Campaign get(Long id) {

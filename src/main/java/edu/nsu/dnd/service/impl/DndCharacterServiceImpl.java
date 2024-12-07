@@ -24,10 +24,10 @@ import java.util.List;
 @Service
 public class DndCharacterServiceImpl implements DndCharacterService {
 
-    DndCharacterRepository dndCharacterRepository;
-    CampaignService campaignService;
-    LocationService locationService;
-    ItemService itemService;
+    private final DndCharacterRepository dndCharacterRepository;
+    private final CampaignService campaignService;
+    private final LocationService locationService;
+    private final ItemService itemService;
 
     @Override
     public DndCharacter get(Long id) {

@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class LocationServiceImpl implements LocationService {
 
-    LocationRepository locationRepository;
-    CampaignServiceImpl campaignService;
+    private final LocationRepository locationRepository;
+    private final CampaignServiceImpl campaignService;
 
     @Override
     public Location get(Long id) {
@@ -25,26 +25,29 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public Location create(Long campaignId, LocationRequest locationRequest) {
-        Campaign campaign = campaignService.get(campaignId);
+    public Location create(LocationRequest request) {
         Location location = new Location();
-        location.setCampaign(campaign);
+        location.setCampaign(campaignService.get(request.getCampaignId()));
+        location.setName(request.getName());
         return locationRepository.save(location);
     }
 
     @Override
     public Page<Location> page(Long campaignId, Pageable pageable) {
-        Campaign campaign = campaignService.get(campaignId);
-        return (Page<Location>) locationRepository.findByCampaignId(campaignId, pageable);
+        return locationRepository.findByCampaignId(campaignId, pageable);
     }
 
     @Override
     public Location update(Long locationId, LocationRequest locationRequest) {
-        return null;
+        Location location = get(locationId);
+        location.setName(locationRequest.getName());
+        return locationRepository.save(location);
     }
 
     @Override
     public void delete(Long id) {
-
+        locationRepository.deleteById(id);
     }
+
+
 }

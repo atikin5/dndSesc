@@ -22,16 +22,16 @@ import java.util.Objects;
 @Service
 public class GameServiceImpl implements GameService {
 
-    DndCharacterRepository dndCharacterRepository;
-    CreatureRepository creatureRepository;
-    ItemRepository itemRepository;
-    DestructibleObjectRepository destructibleObjectRepository;
-    WebSocketMessagingService webSocketMessagingService;
-    DndCharacterService dndCharacterService;
-    CreatureService creatureService;
-    DestructibleObjectService destructibleObjectService;
-    ItemService itemService;
-    LocationService locationService;
+    private final DndCharacterRepository dndCharacterRepository;
+    private final CreatureRepository creatureRepository;
+    private final ItemRepository itemRepository;
+    private final DestructibleObjectRepository destructibleObjectRepository;
+    private final WebSocketMessagingService webSocketMessagingService;
+    private final DndCharacterService dndCharacterService;
+    private final CreatureService creatureService;
+    private final DestructibleObjectService destructibleObjectService;
+    private final ItemService itemService;
+    private final LocationService locationService;
 
 //    @Override
 //    public DndCharacter moveCharacter(Long campaignId, Long characterId, List<Position> positions) {
@@ -198,7 +198,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Item moveItem(Long campaignId, Long itemId, Long characterId, List<Position> path) {
+    public Item moveItem(Long campaignId, Long itemId, List<Position> path) {
         path.forEach(position -> {itemService.move(itemId, position);});
         return itemService.get(itemId);
     }
