@@ -45,12 +45,12 @@ public class ItemController {
         return itemService.getByCreatureEquipmentId(id).stream().map(ItemResponse::new).collect(Collectors.toList());
     }
 
-    @GetMapping("/character_backpack{id}")
+    @GetMapping("/character_backpack/{id}")
     public List<ItemResponse> getItemsByCharacterBackpackId(@PathVariable Long id) {
         return itemService.getByDndCharacterBackpackId(id).stream().map(ItemResponse::new).collect(Collectors.toList());
     }
 
-    @GetMapping("/character_equipment{id}")
+    @GetMapping("/character_equipment/{id}")
     public List<ItemResponse> getItemsByCharacterEquipmentId(@PathVariable Long id) {
         return itemService.getByDndCharacterEquipmentId(id).stream().map(ItemResponse::new).collect(Collectors.toList());
     }

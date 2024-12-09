@@ -16,7 +16,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @AllArgsConstructor
 @Service
@@ -46,50 +45,43 @@ public class GameServiceImpl implements GameService {
 
 
     @Override
-    public DndCharacter moveCharacter(Long campaignId, Long characterId, List<Position> path) {
+    public DndCharacter moveCharacter(Long characterId, List<Position> path) {
         path.forEach((position) -> {dndCharacterService.move(characterId, position);});
         return dndCharacterService.get(characterId);
     }
 
     @Override
-    public SkillCheckResponse skillCheckCharacter(Long campaignId, Long characterId, SkillCheckRequest request) {
+    public SkillCheckResponse skillCheckCharacter(Long characterId, SkillCheckRequest request) {
         return dndCharacterService.skillCheck(characterId, request);
     }
 
     @Override
-    public DndCharacter damageCharacter(Long campaignId, Long characterId, DamageRequest damageRequest) {
+    public DndCharacter damageCharacter(Long characterId, DamageRequest damageRequest) {
         return null;
     }
 
     @Override
-    public Boolean hitByCharacter(Long campaignId, Long characterId, Long targetId, Target targetType, int d20hit, HitRequest request) {
+    public Boolean hitByCharacter(Long characterId, Long targetId, Target targetType, int d20hit, HitRequest request) {
         int hit = creatureService.giveHit(characterId, d20hit, request.getItemId());
-        switch (targetType) {
-            case CREATURE -> {
-                return creatureService.takeHit(targetId, hit);
-            }
-            case DND_CHARACTER -> {
-                return dndCharacterService.takeHit(targetId, hit);
-            }
-            case DESTRUCTIBLE_OBJECT -> {
-                return destructibleObjectService.takeHit(targetId, hit);
-            }
-        }
-        return null;
+        return switch (targetType) {
+            case CREATURE -> creatureService.takeHit(targetId, hit);
+            case DND_CHARACTER -> dndCharacterService.takeHit(targetId, hit);
+            case DESTRUCTIBLE_OBJECT -> destructibleObjectService.takeHit(targetId, hit);
+        };
     }
 
     @Override
-    public DndCharacter giveItemCharacter(Long campaignId, Long characterId, Long itemId) {
+    public DndCharacter giveItemCharacter(Long characterId, Long itemId) {
         return dndCharacterService.addItem(characterId, itemId);
     }
 
     @Override
-    public DndCharacter takeItemCharacter(Long campaignId, Long characterId, Long itemId) {
+    public DndCharacter takeItemCharacter(Long characterId, Long itemId) {
         return dndCharacterService.removeItem(characterId, itemId);
     }
 
     @Override
-    public DndCharacter equipItemCharacter(Long campaignId, Long characterId, Long handItemId) {
+    public DndCharacter equipItemCharacter(Long characterId, Long handItemId) {
         DndCharacter dndCharacter = dndCharacterService.get(characterId);
         Item item = itemService.get(handItemId);
         dndCharacter.equip(item);
@@ -97,7 +89,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public DndCharacter unequipItemCharacter(Long campaignId, Long characterId, Long handItemId) {
+    public DndCharacter unequipItemCharacter(Long characterId, Long handItemId) {
         DndCharacter dndCharacter = dndCharacterService.get(characterId);
         Item item = itemService.get(handItemId);
         dndCharacter.unequip(item);
@@ -105,59 +97,49 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public DndCharacter relocateCharacter(Long campaignId, Long characterId, Long locationId) {
+    public DndCharacter relocateCharacter(Long characterId, Long locationId) {
         Location location = locationService.get(locationId);
-        if (Objects.equals(location.getCampaign().getId(), campaignId)) {
-            return dndCharacterService.relocate(characterId, locationId);
-        }
-        return null;
+        return dndCharacterService.relocate(characterId, locationId);
     }
 
     @Override
-    public Creature moveCreature(Long campaignId, Long creatureId, List<Position> path) {
+    public Creature moveCreature(Long creatureId, List<Position> path) {
         path.forEach((position) -> {creatureService.move(creatureId, position);});
         return creatureService.get(creatureId);
     }
 
     @Override
-    public SkillCheckResponse skillCheckCreature(Long campaignId, Long creatureId, SkillCheckRequest request) {
+    public SkillCheckResponse skillCheckCreature(Long creatureId, SkillCheckRequest request) {
         return creatureService.skillCheck(creatureId, request);
     }
 
     @Override
-    public Creature damageCreature(Long campaignId, Long creatureId, DamageRequest damageRequest) {
+    public Creature damageCreature(Long creatureId, DamageRequest damageRequest) {
         return creatureService.damage(creatureId, damageRequest);
     }
 
     @Override
-    public Boolean hitByCreature(Long campaignId, Long creatureId, Long targetId, Target targetType, int d20hit, HitRequest request) {
+    public Boolean hitByCreature(Long creatureId, Long targetId, Target targetType, int d20hit, HitRequest request) {
         int hit = creatureService.giveHit(creatureId, d20hit, request.getItemId());
-        switch (targetType) {
-            case CREATURE -> {
-                return creatureService.takeHit(creatureId, hit);
-            }
-            case DND_CHARACTER -> {
-                return dndCharacterService.takeHit(creatureId, hit);
-            }
-            case DESTRUCTIBLE_OBJECT -> {
-                return destructibleObjectService.takeHit(creatureId, hit);
-            }
-        }
-        return null;
+        return switch (targetType) {
+            case CREATURE -> creatureService.takeHit(creatureId, hit);
+            case DND_CHARACTER -> dndCharacterService.takeHit(creatureId, hit);
+            case DESTRUCTIBLE_OBJECT -> destructibleObjectService.takeHit(creatureId, hit);
+        };
     }
 
     @Override
-    public Creature giveItemCreature(Long campaignId, Long creatureId, Long itemId) {
+    public Creature giveItemCreature(Long creatureId, Long itemId) {
         return creatureService.addItem(creatureId, itemId);
     }
 
     @Override
-    public Creature takeItemCreature(Long campaignId, Long creatureId, Long itemId) {
+    public Creature takeItemCreature(Long creatureId, Long itemId) {
         return creatureService.removeItem(creatureId, itemId);
     }
 
     @Override
-    public Creature equipItemCreature(Long campaignId, Long creatureId, Long itemId) {
+    public Creature equipItemCreature(Long creatureId, Long itemId) {
         Creature creature = creatureService.get(itemId);
         Item item = itemService.get(itemId);
         creature.equip(item);
@@ -165,7 +147,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Creature unequipItemCreature(Long campaignId, Long creatureId, Long itemId) {
+    public Creature unequipItemCreature(Long creatureId, Long itemId) {
         Creature creature = creatureService.get(itemId);
         Item item = itemService.get(itemId);
         creature.unequip(item);
@@ -173,23 +155,23 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Creature relocateCreature(Long campaignId, Long creatureId, Long locationId) {
+    public Creature relocateCreature(Long creatureId, Long locationId) {
         return creatureService.relocate(creatureId, locationId);
     }
 
     @Override
-    public DestructibleObject moveDestructibleObject(Long campaignId, Long destructibleObjectId, List<Position> path) {
+    public DestructibleObject moveDestructibleObject(Long destructibleObjectId, List<Position> path) {
         path.forEach(position -> {destructibleObjectService.move(destructibleObjectId, position);});
         return destructibleObjectService.get(destructibleObjectId);
     }
 
     @Override
-    public DestructibleObject damageDestructibleObject(Long campaignId, Long destructibleObjectId, DamageRequest damageRequest) {
+    public DestructibleObject damageDestructibleObject(Long destructibleObjectId, DamageRequest damageRequest) {
         return destructibleObjectService.damage(destructibleObjectId, damageRequest);
     }
 
     @Override
-    public DestructibleObject relocateDestructibleObject(Long campaignId, Long destructibleObjectId, Long locationId) {
+    public DestructibleObject relocateDestructibleObject(Long destructibleObjectId, Long locationId) {
         DestructibleObject destructibleObject = destructibleObjectService.get(locationId);
         destructibleObject.setLocation(locationService.get(locationId));
         Position position = new Position();
@@ -198,13 +180,13 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Item moveItem(Long campaignId, Long itemId, List<Position> path) {
+    public Item moveItem(Long itemId, List<Position> path) {
         path.forEach(position -> {itemService.move(itemId, position);});
         return itemService.get(itemId);
     }
 
     @Override
-    public Item relocateItem(Long campaignId, Long itemId, Long locationId) {
+    public Item relocateItem(Long itemId, Long locationId) {
         return itemService.relocate(itemId, locationId);
     }
 }

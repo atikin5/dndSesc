@@ -15,53 +15,53 @@ import java.util.List;
 
 public interface GameService {
 
-    DndCharacter moveCharacter(Long campaignId, Long characterId, List<Position> path);
+    DndCharacter moveCharacter(Long characterId, List<Position> path);
 
-    SkillCheckResponse skillCheckCharacter(Long campaignId, Long characterId, SkillCheckRequest request);
+    SkillCheckResponse skillCheckCharacter(Long characterId, SkillCheckRequest request);
 
-    DndCharacter damageCharacter(Long campaignId, Long characterId, DamageRequest damageRequest);
+    DndCharacter damageCharacter(Long characterId, DamageRequest damageRequest);
 
-    Boolean hitByCharacter(Long campaignId, Long characterId, Long targetId, Target targetType, int d20hit, HitRequest request);
+    Boolean hitByCharacter(Long characterId, Long targetId, Target targetType, int d20hit, HitRequest request);
 
-    DndCharacter giveItemCharacter(Long campaignId, Long characterId, Long itemId);
+    DndCharacter giveItemCharacter(Long characterId, Long itemId);
 
-    DndCharacter takeItemCharacter(Long campaignId, Long characterId, Long itemId);
+    DndCharacter takeItemCharacter(Long characterId, Long itemId);
 
-    DndCharacter equipItemCharacter(Long campaignId, Long characterId, Long handItemId);
+    DndCharacter equipItemCharacter(Long characterId, Long handItemId);
 
-    DndCharacter unequipItemCharacter(Long campaignId, Long characterId, Long handItemId);
+    DndCharacter unequipItemCharacter(Long characterId, Long handItemId);
 
-    DndCharacter relocateCharacter(Long campaignId, Long characterId, Long locationId);
-
-
-    Creature moveCreature(Long campaignId, Long creatureId, List<Position> path);
-
-    SkillCheckResponse skillCheckCreature(Long campaignId, Long creatureId, SkillCheckRequest request);
-
-    Creature damageCreature(Long campaignId, Long creatureId, DamageRequest damageRequest);
-
-    Boolean hitByCreature(Long campaignId, Long creatureId, Long targetId, Target targetType, int d20hit, HitRequest request);
-
-    Creature giveItemCreature(Long campaignId, Long creatureId, Long itemId);
-
-    Creature takeItemCreature(Long campaignId, Long creatureId, Long itemId);
-
-    Creature equipItemCreature(Long campaignId, Long creatureId, Long itemId);
-
-    Creature unequipItemCreature(Long campaignId, Long creatureId, Long itemId);
-
-    Creature relocateCreature(Long campaignId, Long creatureId, Long locationId);
+    DndCharacter relocateCharacter(Long characterId, Long locationId);
 
 
-    DestructibleObject moveDestructibleObject(Long campaignId, Long destructibleObjectId, List<Position> path);
+    Creature moveCreature(Long creatureId, List<Position> path);
 
-    DestructibleObject damageDestructibleObject(Long campaignId, Long destructibleObjectId, DamageRequest damageRequest);
+    SkillCheckResponse skillCheckCreature(Long creatureId, SkillCheckRequest request);
 
-    DestructibleObject relocateDestructibleObject(Long campaignId, Long destructibleObjectId, Long locationId);
+    Creature damageCreature(Long creatureId, DamageRequest damageRequest);
+
+    Boolean hitByCreature(Long creatureId, Long targetId, Target targetType, int d20hit, HitRequest request);
+
+    Creature giveItemCreature(Long creatureId, Long itemId);
+
+    Creature takeItemCreature(Long creatureId, Long itemId);
+
+    Creature equipItemCreature(Long creatureId, Long itemId);
+
+    Creature unequipItemCreature(Long creatureId, Long itemId);
+
+    Creature relocateCreature(Long creatureId, Long locationId);
 
 
-    Item moveItem(Long campaignId, Long itemId, List<Position> path);
+    DestructibleObject moveDestructibleObject(Long destructibleObjectId, List<Position> path);
 
-    Item relocateItem(Long campaignId, Long itemId, Long locationId);
+    DestructibleObject damageDestructibleObject(Long destructibleObjectId, DamageRequest damageRequest);
+
+    DestructibleObject relocateDestructibleObject(Long destructibleObjectId, Long locationId);
+
+
+    Item moveItem(Long itemId, List<Position> path);
+
+    Item relocateItem(Long itemId, Long locationId);
 
 }
