@@ -14,5 +14,6 @@ public class LocationResponse {
 
     public LocationResponse(Location location) {
         id = location.getId();
+        name = location.getName();
     }
 }

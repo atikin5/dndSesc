@@ -6,7 +6,9 @@ import edu.nsu.dnd.service.CampaignService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +21,9 @@ public class CampaignController {
 
     private final CampaignService campaignService;
 
-    @GetMapping()
-        public Page<CampaignShortResponse> page(Pageable pageable) {
+    @GetMapping("/page")
+        public Page<CampaignShortResponse> page(@RequestParam(required = false) int page, @RequestParam(required = false) int size) {
+            Pageable pageable = PageRequest.of(page, size);
             return campaignService.page(pageable).map(CampaignShortResponse::new);
         }
 

@@ -18,7 +18,7 @@ import java.util.List;
 @Transactional
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/dnd-character")
+@RequestMapping("/character")
 public class DndCharacterController {
 
     private final DndCharacterService dndCharacterService;

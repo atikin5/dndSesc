@@ -10,6 +10,27 @@ let mouseIndicator = [
 
 let statisticIndicator = [];
 
+
+async function loadCampaigns() {
+    let response = await fetch("http://localhost:8080/campaign/page");
+
+    if (response.ok)
+    {
+        
+    }
+}
+
+$(function () {
+    $("#load-campaigns").click(() => loadCampaigns());
+});
+
+
+
+
+
+
+
+
 async function loadMap() {
     console.log("Загрузка карты...");
 
