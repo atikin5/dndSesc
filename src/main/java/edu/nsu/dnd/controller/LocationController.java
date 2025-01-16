@@ -1,6 +1,7 @@
 package edu.nsu.dnd.controller;
 
 import edu.nsu.dnd.model.dto.requests.LocationRequest;
+import edu.nsu.dnd.model.dto.responses.LocationFullResponse;
 import edu.nsu.dnd.model.dto.responses.LocationResponse;
 import edu.nsu.dnd.model.persistent.Location;
 import edu.nsu.dnd.service.LocationService;
@@ -25,6 +26,9 @@ public class LocationController {
     public LocationResponse get(@PathVariable Long id) {
         return new LocationResponse(locationService.get(id));
     }
+
+    @GetMapping("/{id}/full")
+    public LocationFullResponse getFull(@PathVariable Long id) {return new LocationFullResponse(locationService.get(id));}
 
     @PostMapping
     public LocationResponse create(@RequestBody LocationRequest locationRequest) {

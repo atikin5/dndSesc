@@ -9,6 +9,7 @@ public interface LocationService {
 
     Location get(Long id);
 
+
     Location create(LocationRequest locationRequest);
 
     Page<Location> page(Long campaignId , Pageable pageable);
