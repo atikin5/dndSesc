@@ -28,7 +28,9 @@ public class LocationController {
     }
 
     @GetMapping("/{id}/full")
-    public LocationFullResponse getFull(@PathVariable Long id) {return new LocationFullResponse(locationService.get(id));}
+    public LocationFullResponse getFull(@PathVariable Long id) {
+        return new LocationFullResponse(locationService.get(id));
+    }
 
     @PostMapping
     public LocationResponse create(@RequestBody LocationRequest locationRequest) {
@@ -36,7 +38,7 @@ public class LocationController {
     }
 
     @GetMapping("/page")
-    public Page<LocationResponse> page(@RequestParam(required = false) Long campaignId, @RequestParam(required = false) int page, @RequestParam(required = false) int size) {
+    public Page<LocationResponse> page(@RequestParam Long campaignId, @RequestParam(required = false) int page, @RequestParam(required = false) int size) {
         Pageable pageable = PageRequest.of(page, size);
         return locationService.page(campaignId, pageable).map(LocationResponse::new);
     }

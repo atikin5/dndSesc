@@ -43,8 +43,7 @@ public class ItemServiceImpl implements ItemService {
         return List.of();
     }
 
-
-    public void fillFields(ItemRequest itemRequest, Item item) {
+    private void fillFields(ItemRequest itemRequest, Item item) {
         item.setCampaign(campaignService.get(itemRequest.getCampaignId()));
     }
 

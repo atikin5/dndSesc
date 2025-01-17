@@ -29,7 +29,6 @@ function loadWindow() {
         </div>
     </div>`
     $("#body").append(div);
-
 }
 
 let mouseIndicator = [
@@ -59,18 +58,19 @@ async function loadCampaigns() {
     }
 }
 
-let locPageSize = 10;
+
 let locPagePage = 0;
+let locPageSize = 10;
+let crPagePage = 0;
+let crPageSize = 10;
+let chPagePage = 0;
+let chPageSize = 10;
 
 async function openCampaign(id) {
     let responseCam = await fetch(`http://localhost:8080/campaign/${id}`);
     if (responseCam.ok) {
         $("#campaigns-div").remove();
-        let campaign = await responseCam.json();
-        let responseLoc = await fetch(`http://localhost:8080/location/page?campaignId=${campaign.id}&page=${locPagePage}&size=${locPageSize}`);
-        if (responseLoc.ok) {
-            let locationsPage = await responseLoc.json();
-            const tabs = `
+        const tabs = `
                 <div id="tabs" class="campaign-tabs">
                     <ul>
                         <li><a href="#tab1">Локации</a>
@@ -78,16 +78,19 @@ async function openCampaign(id) {
                         <li><a href="#tab3">Персонажи</a>
                     </ul>
                     <div id="tab1"><table id="locations"><tr><th>Название</th><th></th></tr></table></div>
-                    <div id="tab2"></div>
-                    <div id="tab3"></div>
+                    <div id="tab2"><table id="creatures"><tr><th>Тип</th><th></th></tr></table></div>
+                    <div id="tab3"><table id="dnd-characters"><tr><th>Тип</th><th></th></tr></table></div>
                 </div>`
-            $("#body").append(tabs);
-            $(function() {
-                $('#tabs').tabs();
-                $('button').button();
-            });
+        $("#body").append(tabs);
+        $(function() {
+            $('#tabs').tabs();
+            $('button').button();
+        });
+        let campaign = await responseCam.json();
+        let responseLoc = await fetch(`http://localhost:8080/location/page?campaignId=${campaign.id}&page=${locPagePage}&size=${locPageSize}`);
+        if (responseLoc.ok) {
+            let locationsPage = await responseLoc.json();
             for (let i = 0; i < locationsPage.content.length; i++) {
-                console.log(1212)
                 const locationsTr = `
                 <tr>
                     <td>${locationsPage.content[i].name}</td>
@@ -95,17 +98,51 @@ async function openCampaign(id) {
                 </tr>`;
                 $("#locations").append(locationsTr);
             }
-            const creaturesTr = ``;
-            const charactersTr = ``;
+            console.log("Locations done")
         }
-        else {
-            alert("Ошибка HTTP: " + responseLoc.status);
+        else {alert(`Ошибка HTTP: ${responseLoc.status}`);}
+        let responseCr = await fetch(`http://localhost:8080/creature/page-campaign/${campaign.id}?page=${crPagePage}&size=${crPageSize}`)
+        if (responseCr.ok) {
+            let creaturesPage = await responseCr.json();
+            console.log(creaturesPage.content)
+            for (let i = 0; i < creaturesPage.content.length; i++) {
+                console.log(`id ${campaign.id} page ${crPagePage} size ${crPageSize}`)
+                const creaturesTr = `
+                <tr>
+                    <td>${creaturesPage.content[i].type}</td>
+                    <td><button class="open-location" onClick="openCreature(${creaturesPage.content[i].id})">Редактировать существо</button></td>
+                </tr>`;
+                $("#creatures").append(creaturesTr);
+            }
+            console.log("Creatures done")
         }
+        else {alert(`Ошибка HTTP: ${responseCr.status}`);}
+        let responseCh = await fetch(`http://localhost:8080/character/page-campaign/${campaign.id}?page=${chPagePage}&size=${chPageSize}`)
+        if (responseCh.ok) {
+            let dndCharactersPage = await responseCh.json();
+            for (let i = 0; i < dndCharactersPage.content.length; i++) {
+                const charactersTr = `
+                <tr>
+                    <td>${dndCharactersPage.content[i].type}</td>
+                    <td><button class="open-location" onClick="openCreature(${dndCharactersPage.content[i].id})">Редактировать существо</button></td>
+                </tr>`;
+                $("#dnd-characters").append(charactersTr)
+            }
+        }
+        else {alert(`Ошибка HTTP: ${responseCh.status}`)}
     }
-    else {
-        alert("Ошибка HTTP: " + responseCam.status);
-    }
+    else {alert(`Ошибка HTTP: ${responseCam.status}`);}
 }
+
+async function openCreature(id) {
+    let responseCr = await fetch(`http://localhost:8080/character/${id}`)
+    if (responseCr.ok) {
+        let creature = await responseCr.json();
+
+    }
+    else {alert(`Ошибка HTTP: ${responseCr.status}`)}
+}
+
 
 async function openLocation(id) {
     console.log("Загрузка карты...");

@@ -16,6 +16,8 @@ import edu.nsu.dnd.service.ItemService;
 import edu.nsu.dnd.service.LocationService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,13 +38,23 @@ public class CreatureServiceImpl implements CreatureService {
     }
 
     @Override
-    public List<Creature> getByCampaignId(Long campaignId) {
+    public List<Creature> getPageByCampaignId(Long campaignId) {
         return creatureRepository.findByCampaignId(campaignId);
     }
 
     @Override
     public List<Creature> getByLocationId(Long locationId) {
-        return creatureRepository.findByLocationId(locationId);
+        return creatureRepository.findPageByCampaignId(locationId);
+    }
+
+    @Override
+    public Page<Creature> getPageByCampaignId(Long campaignId, Pageable pageable) {
+        return creatureRepository.findPageByCampaignId(campaignId, pageable);
+    }
+
+    @Override
+    public Page<Creature> getPageByLocationId(Long locationId, Pageable pageable) {
+        return creatureRepository.findPageByLocationId(locationId, pageable);
     }
 
     private void fillFields(CreatureRequest request, Creature creature) {
@@ -72,7 +84,7 @@ public class CreatureServiceImpl implements CreatureService {
     }
 
     @Override
-    public Creature move(Long id, Position position) {
+    public Creature replace(Long id, Position position) {
         Creature creature = get(id);
         creature.setPosition(position);
         return creatureRepository.save(creature);

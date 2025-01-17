@@ -16,6 +16,8 @@ import edu.nsu.dnd.service.ItemService;
 import edu.nsu.dnd.service.LocationService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,12 +39,22 @@ public class DndCharacterServiceImpl implements DndCharacterService {
 
     @Override
     public List<DndCharacter> getByCampaignId(Long campaignId) {
-        return dndCharacterRepository.findByCampaignId(campaignId);
+        return dndCharacterRepository.findPageByCampaignId(campaignId);
     }
 
     @Override
     public List<DndCharacter> getByLocationId(Long locationId) {
         return dndCharacterRepository.findByLocationId(locationId);
+    }
+
+    @Override
+    public Page<DndCharacter> getPageByCampaignId(Long campaignId, Pageable pageable) {
+        return dndCharacterRepository.findPageByCampaignId(campaignId, pageable);
+    }
+
+    @Override
+    public Page<DndCharacter> getPageByLocationId(Long locationId, Pageable pageable) {
+        return dndCharacterRepository.findPageByLocationId(locationId, pageable);
     }
 
     @Override

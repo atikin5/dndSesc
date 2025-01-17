@@ -60,7 +60,6 @@ public class ItemController {
         return new ItemResponse(itemService.create(itemRequest));
     }
 
-
     @PostMapping("/{id}/update")
     public ItemResponse update(@PathVariable Long id, @RequestBody ItemRequest itemRequest) {
         return new ItemResponse(itemService.update(id, itemRequest));
@@ -80,6 +79,5 @@ public class ItemController {
     public ItemResponse relocate(@PathVariable Long id, @RequestBody Long locationId) {
         return new ItemResponse(itemService.relocate(id, locationId));
     }
-
 
 }

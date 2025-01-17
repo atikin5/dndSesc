@@ -7,6 +7,8 @@ import edu.nsu.dnd.model.persistent.DndCharacter;
 import edu.nsu.dnd.model.dto.requests.DamageRequest;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
 import edu.nsu.dnd.model.dto.responses.SkillCheckResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -17,6 +19,10 @@ public interface DndCharacterService {
     List<DndCharacter> getByCampaignId(Long campaignId);
 
     List<DndCharacter> getByLocationId(Long locationId);
+
+    Page<DndCharacter> getPageByCampaignId(Long campaignId, Pageable pageable);
+
+    Page<DndCharacter> getPageByLocationId(Long locationId, Pageable pageable);
 
     DndCharacter create(DndCharacterRequest dndCharacterRequest);
 

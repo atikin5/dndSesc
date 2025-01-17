@@ -104,7 +104,7 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public Creature moveCreature(Long creatureId, List<Position> path) {
-        path.forEach((position) -> {creatureService.move(creatureId, position);});
+        path.forEach((position) -> {creatureService.replace(creatureId, position);});
         return creatureService.get(creatureId);
     }
 
