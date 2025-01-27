@@ -45,7 +45,12 @@ public class DndCharacterResponse {
     public DndCharacterResponse(DndCharacter dndCharacter) {
         id = dndCharacter.getId();
         campaignId = dndCharacter.getCampaign().getId();
-        locationId = dndCharacter.getLocation().getId();
+        if (dndCharacter.getLocation() != null) {
+            locationId = dndCharacter.getLocation().getId();
+        }
+        else {
+            locationId = null;
+        }
         type = dndCharacter.getType();
         position = dndCharacter.getPosition();
         operational = dndCharacter.isOperational();

@@ -83,7 +83,7 @@ public class DndCharacterController {
         return new DndCharacterResponse(dndCharacterService.resize(id, size));
     }
 
-    @GetMapping("/{id}/relocate/{locationId}")
+    @PostMapping("/{id}/relocate/{locationId}")
     public DndCharacterResponse relocate(@PathVariable Long id, @PathVariable Long locationId ) {
         return new DndCharacterResponse(dndCharacterService.relocate(id, locationId));
     }

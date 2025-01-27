@@ -38,9 +38,9 @@ public class LocationController {
     }
 
     @GetMapping("/page")
-    public Page<LocationResponse> page(@RequestParam Long campaignId, @RequestParam(required = false) int page, @RequestParam(required = false) int size) {
+    public Page<LocationFullResponse> page(@RequestParam Long campaignId, @RequestParam(required = false) int page, @RequestParam(required = false) int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return locationService.page(campaignId, pageable).map(LocationResponse::new);
+        return locationService.page(campaignId, pageable).map(LocationFullResponse::new);
     }
 
 }
