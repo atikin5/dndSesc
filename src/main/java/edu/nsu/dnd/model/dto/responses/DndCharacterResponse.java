@@ -1,9 +1,6 @@
 package edu.nsu.dnd.model.dto.responses;
 
-import edu.nsu.dnd.model.enums.Condition;
-import edu.nsu.dnd.model.enums.DamageMultiplier;
-import edu.nsu.dnd.model.enums.DamageType;
-import edu.nsu.dnd.model.enums.Size;
+import edu.nsu.dnd.model.enums.*;
 import edu.nsu.dnd.model.persistent.DndCharacter;
 import edu.nsu.dnd.model.persistent.embeddable.Abilities;
 import edu.nsu.dnd.model.persistent.embeddable.CharacterClass;
@@ -34,6 +31,7 @@ public class DndCharacterResponse {
     private Abilities abilities;
     private Map<DamageType, DamageMultiplier> damageMultipliers;
     private Size size;
+    private Race race;
     private List<Condition> conditions = new ArrayList<>();
     private List<ItemResponse> backpackItems = new ArrayList<>();
     private List<ItemResponse> equipmentItems = new ArrayList<>();
@@ -61,6 +59,7 @@ public class DndCharacterResponse {
         abilities = dndCharacter.getAbilities();
         damageMultipliers = dndCharacter.getDamageMultipliers();
         size = dndCharacter.getSize();
+        race = dndCharacter.getRace();
         conditions = dndCharacter.getConditions();
         backpackItems = dndCharacter.getBackpackItems().stream().map(ItemResponse::new).toList();
         equipmentItems = dndCharacter.getEquippedItems().stream().map(ItemResponse::new).toList();

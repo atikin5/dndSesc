@@ -58,15 +58,31 @@ public class CreatureServiceImpl implements CreatureService {
     }
 
     private void fillFields(CreatureRequest request, Creature creature) {
+        if (request.getLocationId() != null) {
+            creature.setLocation(locationService.get(request.getLocationId()));
+        }
+        else {
+            creature.setLocation(null);
+        }
+
+        creature.setType(request.getType());
+        creature.setPosition(request.getPosition());
+        creature.setOperational(request.isOperational());
+        creature.setCurrentHp(request.getCurrentHp());
+        creature.setMaxHp(request.getMaxHp());
+        creature.setTemporaryHp(request.getTemporaryHp());
+        creature.setArmorClass(request.getArmorClass());
         creature.setAbilities(request.getAbilities());
-        creature.setCampaign(campaignService.get(request.getCampaignId()));
+        creature.setDamageMultipliers(request.getDamageMultipliers());
+        creature.setSize(request.getSize());
         creature.setRace(request.getRace());
+        creature.setConditions(request.getConditions());
     }
 
     @Override
     public Creature create(CreatureRequest request) {
         Creature creature = new Creature();
-        creature.setType(request.getType());
+        creature.setCampaign(campaignService.get(request.getCampaignId()));
         fillFields(request, creature);
         return creatureRepository.save(creature);
     }

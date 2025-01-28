@@ -60,7 +60,7 @@ public class DndCharacterServiceImpl implements DndCharacterService {
     @Override
     public DndCharacter create(DndCharacterRequest request) {
         DndCharacter dndCharacter = new DndCharacter();
-        dndCharacter.setType(request.getType());
+        dndCharacter.setCampaign(campaignService.get(request.getCampaignId()));
         fillFields(request, dndCharacter);
         return dndCharacterRepository.save(dndCharacter);
     }
@@ -73,9 +73,29 @@ public class DndCharacterServiceImpl implements DndCharacterService {
     }
 
     private void fillFields(DndCharacterRequest request, DndCharacter dndCharacter) {
+        if (request.getLocationId() != null) {
+            dndCharacter.setLocation(locationService.get(request.getLocationId()));
+        }
+        else {
+            dndCharacter.setLocation(null);
+        }
+        dndCharacter.setType(request.getType());
+        dndCharacter.setPosition(request.getPosition());
+        dndCharacter.setOperational(request.isOperational());
+        dndCharacter.setCurrentHp(request.getCurrentHp());
+        dndCharacter.setMaxHp(request.getMaxHp());
+        dndCharacter.setTemporaryHp(request.getTemporaryHp());
+        dndCharacter.setArmorClass(request.getArmorClass());
         dndCharacter.setAbilities(request.getAbilities());
-        dndCharacter.setCampaign(campaignService.get(request.getCampaignId()));
+        dndCharacter.setDamageMultipliers(request.getDamageMultipliers());
+        dndCharacter.setSize(request.getSize());
         dndCharacter.setRace(request.getRace());
+        dndCharacter.setConditions(request.getConditions());
+        dndCharacter.setCharacterClasses(request.getCharacterClasses());
+        dndCharacter.setCharacterDescription(request.getCharacterDescription());
+        dndCharacter.setReviveSuccesses(request.getReviveSuccesses());
+        dndCharacter.setReviveFailures(request.getReviveFailures());
+
     }
 
     @Override
@@ -161,12 +181,8 @@ public class DndCharacterServiceImpl implements DndCharacterService {
     public DndCharacter removeItem(Long id, Long itemId) {
         DndCharacter dndCharacter = get(id);
         Item item = itemService.get(itemId);
-        if (dndCharacter.getBackpackItems().contains(item)) {
-            dndCharacter.getBackpackItems().remove(item);
-        }
-        if (dndCharacter.getEquippedItems().contains(item)) {
-            dndCharacter.getEquippedItems().remove(item);
-        }
+        dndCharacter.getBackpackItems().remove(item);
+        dndCharacter.getEquippedItems().remove(item);
         return dndCharacterRepository.save(dndCharacter);
     }
 

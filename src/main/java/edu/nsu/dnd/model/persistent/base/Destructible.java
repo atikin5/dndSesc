@@ -17,6 +17,9 @@ import java.util.Map;
 @MappedSuperclass
 public abstract class Destructible extends MovableObject {
 
+    /**
+     * "Живо" или нет
+     */
     private boolean operational = true;
     private int currentHp;
     private int maxHp;

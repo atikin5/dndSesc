@@ -19,4 +19,4 @@ public enum Skill {
     INTIMIDATION,
     PERFORMANCE,
     PERSUASION,
-    }
+}
