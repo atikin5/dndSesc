@@ -2,12 +2,16 @@ package edu.nsu.dnd.model.persistent.embeddable;
 
 import edu.nsu.dnd.model.enums.Ability;
 import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Embeddable
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Abilities {
 
     private int strength;

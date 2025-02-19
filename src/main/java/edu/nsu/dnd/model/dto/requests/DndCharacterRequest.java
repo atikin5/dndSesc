@@ -38,29 +38,4 @@ public class DndCharacterRequest {
     private int reviveSuccesses;
     private int reviveFailures;
 
-    public DndCharacterRequest(DndCharacter dndCharacter) {
-        campaignId = dndCharacter.getCampaign().getId();
-        if (dndCharacter.getLocation() != null) {
-            locationId = dndCharacter.getLocation().getId();
-        }
-        else {
-            locationId = null;
-        }
-        type = dndCharacter.getType();
-        position = dndCharacter.getPosition();
-        operational = dndCharacter.isOperational();
-        currentHp = dndCharacter.getCurrentHp();
-        maxHp = dndCharacter.getMaxHp();
-        temporaryHp = dndCharacter.getTemporaryHp();
-        armorClass = dndCharacter.getArmorClass();
-        abilities = dndCharacter.getAbilities();
-        damageMultipliers = dndCharacter.getDamageMultipliers();
-        size = dndCharacter.getSize();
-        race = dndCharacter.getRace();
-        conditions = dndCharacter.getConditions();
-        characterClasses = dndCharacter.getCharacterClasses();
-        characterDescription = dndCharacter.getCharacterDescription();
-        reviveSuccesses = dndCharacter.getReviveSuccesses();
-        reviveFailures = dndCharacter.getReviveFailures();
-    }
 }

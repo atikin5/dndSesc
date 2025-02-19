@@ -53,6 +53,11 @@ public class CreatureController {
         return new CreatureResponse(creatureService.get(id));
     }
 
+    @PutMapping("/{id}/update")
+    public CreatureResponse updateCreature(@PathVariable Long id, @RequestBody CreatureRequest request) {
+        return new CreatureResponse(creatureService.update(id, request));
+    }
+
     @DeleteMapping("/{id}")
     public void deleteCreatureById(@PathVariable Long id) {
         creatureService.delete(id);
@@ -92,4 +97,5 @@ public class CreatureController {
     public SkillCheckResponse skillCheck(@PathVariable Long id, @RequestBody SkillCheckRequest request) {
         return creatureService.skillCheck(id, request);
     }
+
 }

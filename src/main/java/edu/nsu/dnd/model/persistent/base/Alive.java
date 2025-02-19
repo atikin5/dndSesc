@@ -28,10 +28,10 @@ public abstract class Alive extends Destructible {
     private List<Item> equippedItems = new ArrayList<>();
 
     @Embedded
-    private Abilities abilities;
+    private Abilities abilities = new Abilities(10, 10, 10, 10, 10, 10);
 
     @Enumerated(EnumType.STRING)
-    private Race race;
+    private Race race = Race.HUMAN;
 
     private int maxMovement = 30;
     private int movement;
@@ -50,13 +50,19 @@ public abstract class Alive extends Destructible {
     private Skills skills = new Skills();
 
     public void equip(Item item) {
-        if (item.equip(equippedItems, maxItemPosition)) {
-            equippedItems.add(item);
-        }
+        equippedItems.add(item);
     }
 
     public void unequip(Item item) {
         equippedItems.remove(item);
+    }
+
+    public void takeItem(Item item) {
+        backpackItems.add(item);
+    }
+
+    public void removeItem(Item item) {
+        backpackItems.remove(item);
     }
 
 }

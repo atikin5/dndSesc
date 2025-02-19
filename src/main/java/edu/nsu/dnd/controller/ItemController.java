@@ -70,7 +70,7 @@ public class ItemController {
         return new ItemResponse(itemService.move(id, position));
     }
 
-    @PostMapping("/{id}/delete")
+    @DeleteMapping("/{id}/delete")
     public void delete(@PathVariable Long id) {
         itemService.delete(id);
     }

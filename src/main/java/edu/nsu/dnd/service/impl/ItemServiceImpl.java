@@ -35,12 +35,12 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<Item> getByCampaignId(Long campaignId) {
-        return List.of();
+        return itemRepository.findByCampaignId(campaignId);
     }
 
     @Override
     public List<Item> getByLocationId(Long locationId) {
-        return List.of();
+        return itemRepository.findByLocationId(locationId);
     }
 
     private void fillFields(ItemRequest itemRequest, Item item) {

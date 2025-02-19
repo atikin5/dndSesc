@@ -5,6 +5,7 @@ import edu.nsu.dnd.model.persistent.Creature;
 import edu.nsu.dnd.model.persistent.embeddable.Abilities;
 import edu.nsu.dnd.model.persistent.embeddable.ItemPosition;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
+import edu.nsu.dnd.model.persistent.embeddable.Skills;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,7 @@ public class CreatureResponse {
     private Abilities abilities;
     private Race race;
     private List<Condition> conditions = new ArrayList<>();
+    private Skills skills;
     private List<ItemResponse> backpackItems = new ArrayList<>();
     private List<ItemResponse> equippedItems = new ArrayList<>();
 
@@ -57,6 +59,7 @@ public class CreatureResponse {
         size = creature.getSize();
         conditions = creature.getConditions();
         abilities = creature.getAbilities();
+        skills = creature.getSkills();
         race = creature.getRace();
         backpackItems = creature.getBackpackItems().stream().map(ItemResponse::new).toList();
         equippedItems = creature.getEquippedItems().stream().map(ItemResponse::new).toList();

@@ -11,5 +11,7 @@ import java.util.List;
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Long> {
 
-    Page<Location> findByCampaignId(Long campaignId, Pageable pageable);
+    List<Location> findByCampaignId(Long campaignId);
+
+    Page<Location> findPageByCampaignId(Long campaignId, Pageable pageable);
 }

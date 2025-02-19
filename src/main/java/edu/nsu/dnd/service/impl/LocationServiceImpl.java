@@ -1,7 +1,6 @@
 package edu.nsu.dnd.service.impl;
 
 import edu.nsu.dnd.model.dto.requests.LocationRequest;
-import edu.nsu.dnd.model.persistent.Campaign;
 import edu.nsu.dnd.model.persistent.Location;
 import edu.nsu.dnd.repository.LocationRepository;
 import edu.nsu.dnd.service.LocationService;
@@ -10,6 +9,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -25,6 +26,11 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
+    public List<Location> getByCampaignId(Long campaignId) {
+        return locationRepository.findByCampaignId(campaignId);
+    }
+
+    @Override
     public Location create(LocationRequest request) {
         Location location = new Location();
         location.setCampaign(campaignService.get(request.getCampaignId()));
@@ -34,7 +40,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public Page<Location> page(Long campaignId, Pageable pageable) {
-        return locationRepository.findByCampaignId(campaignId, pageable);
+        return locationRepository.findPageByCampaignId(campaignId, pageable);
     }
 
     @Override

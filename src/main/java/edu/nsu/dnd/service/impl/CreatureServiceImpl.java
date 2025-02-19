@@ -1,7 +1,9 @@
 package edu.nsu.dnd.service.impl;
 
 import edu.nsu.dnd.model.dto.requests.CreatureRequest;
+import edu.nsu.dnd.model.dto.requests.ItemRequest;
 import edu.nsu.dnd.model.dto.requests.SkillCheckRequest;
+import edu.nsu.dnd.model.dto.responses.ItemResponse;
 import edu.nsu.dnd.model.dto.responses.SkillCheckResponse;
 import edu.nsu.dnd.model.enums.DamageMultiplier;
 import edu.nsu.dnd.model.enums.Size;
@@ -64,7 +66,6 @@ public class CreatureServiceImpl implements CreatureService {
         else {
             creature.setLocation(null);
         }
-
         creature.setType(request.getType());
         creature.setPosition(request.getPosition());
         creature.setOperational(request.isOperational());
@@ -77,6 +78,19 @@ public class CreatureServiceImpl implements CreatureService {
         creature.setSize(request.getSize());
         creature.setRace(request.getRace());
         creature.setConditions(request.getConditions());
+        for (Long idItemResponse : request.getIdEquipmentItems()) {
+            Item item = itemService.get(idItemResponse);
+            if (item.equip(creature.getEquippedItems(), creature.getMaxItemPosition())) {
+                creature.equip(item);
+            } else {
+                throw new RuntimeException("Can't equip this items");
+            }
+
+        }
+        for (Long idItemResponse : request.getIdBackpackItems()) {
+            Item item = itemService.get(idItemResponse);
+            creature.takeItem(item);
+        }
     }
 
     @Override

@@ -13,6 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @AllArgsConstructor
 @Transactional
 @RestController
@@ -30,6 +33,11 @@ public class LocationController {
     @GetMapping("/{id}/full")
     public LocationFullResponse getFull(@PathVariable Long id) {
         return new LocationFullResponse(locationService.get(id));
+    }
+
+    @GetMapping("/campaign/{campaignId}")
+    public List<LocationResponse> getByCampaign(@PathVariable Long campaignId) {
+        return locationService.getByCampaignId(campaignId).stream().map(LocationResponse::new).collect(Collectors.toList());
     }
 
     @PostMapping

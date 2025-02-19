@@ -32,7 +32,7 @@ public abstract class Destructible extends MovableObject {
     private Map<DamageType, DamageMultiplier> damageMultipliers;
 
     @Enumerated(EnumType.STRING)
-    private Size size;
+    private Size size = Size.MEDIUM;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)

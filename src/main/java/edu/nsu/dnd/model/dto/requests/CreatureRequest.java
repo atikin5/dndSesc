@@ -31,31 +31,7 @@ public class CreatureRequest {
     private Abilities abilities;
     private Race race;
     private List<Condition> conditions = new ArrayList<>();
-    private List<ItemResponse> backpackItems = new ArrayList<>();
-    private List<ItemResponse> equipmentItems = new ArrayList<>();
-
-    public CreatureRequest(Creature creature) {
-        campaignId = creature.getCampaign().getId();
-        if (creature.getLocation() != null) {
-            locationId = creature.getLocation().getId();
-        }
-        else {
-            locationId = null;
-        }
-        type = creature.getType();
-        position = creature.getPosition();
-        operational = creature.isOperational();
-        currentHp = creature.getCurrentHp();
-        maxHp = creature.getMaxHp();
-        temporaryHp = creature.getTemporaryHp();
-        armorClass = creature.getArmorClass();
-        damageMultipliers = creature.getDamageMultipliers();
-        size = creature.getSize();
-        conditions = creature.getConditions();
-        abilities = creature.getAbilities();
-        race = creature.getRace();
-        backpackItems = creature.getBackpackItems().stream().map(ItemResponse::new).toList();
-        equipmentItems = creature.getEquippedItems().stream().map(ItemResponse::new).toList();
-    }
+    private List<Long> idBackpackItems = new ArrayList<>();
+    private List<Long> idEquipmentItems = new ArrayList<>();
 
 }
