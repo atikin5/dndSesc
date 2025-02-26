@@ -1,6 +1,7 @@
 package edu.nsu.dnd.model.persistent.base;
 
 import edu.nsu.dnd.model.enums.Race;
+import edu.nsu.dnd.model.enums.Skill;
 import edu.nsu.dnd.model.persistent.Item;
 import edu.nsu.dnd.model.persistent.embeddable.Abilities;
 import edu.nsu.dnd.model.persistent.embeddable.ItemPosition;
@@ -47,7 +48,9 @@ public abstract class Alive extends Destructible {
 
 
     private int proficiencyBonus;
-    private Skills skills = new Skills();
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    private List<Skill> skills = new ArrayList<>();
 
     public void equip(Item item) {
         equippedItems.add(item);

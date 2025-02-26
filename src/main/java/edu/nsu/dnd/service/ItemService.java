@@ -14,6 +14,8 @@ public interface ItemService {
 
     Item update(Long id, ItemRequest request);
 
+    List<Item> getUnusedItemsByCampaignId(Long campaignId);
+
     List<Item> getByCampaignId(Long campaignId);
 
     List<Item> getByLocationId(Long locationId);

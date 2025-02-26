@@ -53,23 +53,4 @@ public class DestructibleObjectController {
         return new DestructibleObjectResponse(destructibleObjectService.update(id, request));
     }
 
-    @PostMapping("/{id}/move")
-    public DestructibleObjectResponse move(@PathVariable Long id, @RequestBody Position position) {
-        return new DestructibleObjectResponse(destructibleObjectService.move(id, position));
-    }
-
-    @PostMapping("/{id}/damage")
-    public DestructibleObjectResponse damage(@PathVariable Long id, @RequestBody DamageRequest damageRequest) {
-        return new DestructibleObjectResponse(destructibleObjectService.damage(id, damageRequest));
-    }
-
-    @PostMapping("/{id}/heal")
-    public DestructibleObjectResponse heal(@PathVariable Long id, @RequestBody int healAmount) {
-        return new DestructibleObjectResponse(destructibleObjectService.heal(id, healAmount));
-    }
-
-    @PostMapping("/{id}/resize")
-    public DestructibleObjectResponse resize(@PathVariable Long id, @RequestBody Size size) {
-        return new DestructibleObjectResponse(destructibleObjectService.resize(id, size));
-    }
 }

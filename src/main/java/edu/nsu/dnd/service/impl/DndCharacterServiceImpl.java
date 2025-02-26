@@ -203,7 +203,7 @@ public class DndCharacterServiceImpl implements DndCharacterService {
             return skillCheckResponse;
         }
 
-        if (dndCharacter.getSkills().getProficiencySkills().contains(skillCheckRequest.getSkill())) {
+        if (dndCharacter.getSkills().contains(skillCheckRequest.getSkill())) {
             skillCheckResponse.setValue(
                     skillCheckRequest.getD20Value()
                             + (int) Math.floor(dndCharacter.getProficiencyBonus() * skillCheckRequest.getProficiencyBonusMultiplier())

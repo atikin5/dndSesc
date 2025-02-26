@@ -1,9 +1,7 @@
 package edu.nsu.dnd.service.impl;
 
 import edu.nsu.dnd.model.dto.requests.CreatureRequest;
-import edu.nsu.dnd.model.dto.requests.ItemRequest;
 import edu.nsu.dnd.model.dto.requests.SkillCheckRequest;
-import edu.nsu.dnd.model.dto.responses.ItemResponse;
 import edu.nsu.dnd.model.dto.responses.SkillCheckResponse;
 import edu.nsu.dnd.model.enums.DamageMultiplier;
 import edu.nsu.dnd.model.enums.Size;
@@ -11,6 +9,7 @@ import edu.nsu.dnd.model.persistent.Creature;
 import edu.nsu.dnd.model.dto.requests.DamageRequest;
 import edu.nsu.dnd.model.persistent.Item;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
+import edu.nsu.dnd.model.persistent.embeddable.Skills;
 import edu.nsu.dnd.repository.CreatureRepository;
 import edu.nsu.dnd.service.CampaignService;
 import edu.nsu.dnd.service.CreatureService;
@@ -22,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -78,16 +78,18 @@ public class CreatureServiceImpl implements CreatureService {
         creature.setSize(request.getSize());
         creature.setRace(request.getRace());
         creature.setConditions(request.getConditions());
-        for (Long idItemResponse : request.getIdEquipmentItems()) {
+        creature.setSkills(request.getSkills());
+        creature.setEquippedItems(new ArrayList<Item>());
+        for (Long idItemResponse : request.getEquippedItemIds()) {
             Item item = itemService.get(idItemResponse);
             if (item.equip(creature.getEquippedItems(), creature.getMaxItemPosition())) {
                 creature.equip(item);
             } else {
                 throw new RuntimeException("Can't equip this items");
             }
-
         }
-        for (Long idItemResponse : request.getIdBackpackItems()) {
+        creature.setBackpackItems(new ArrayList<Item>());
+        for (Long idItemResponse : request.getBackpackItemIds()) {
             Item item = itemService.get(idItemResponse);
             creature.takeItem(item);
         }
@@ -215,7 +217,7 @@ public class CreatureServiceImpl implements CreatureService {
             return skillCheckResponse;
         }
 
-        if (creature.getSkills().getProficiencySkills().contains(skillCheckRequest.getSkill())) {
+        if (creature.getSkills().contains(skillCheckRequest.getSkill())) {
             skillCheckResponse.setValue(
                     skillCheckRequest.getD20Value()
                             + (int) Math.floor(creature.getProficiencyBonus() * skillCheckRequest.getProficiencyBonusMultiplier())

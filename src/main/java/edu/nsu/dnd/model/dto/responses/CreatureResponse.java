@@ -34,7 +34,7 @@ public class CreatureResponse {
     private Abilities abilities;
     private Race race;
     private List<Condition> conditions = new ArrayList<>();
-    private Skills skills;
+    private List<Skill> skills = new ArrayList<>();
     private List<ItemResponse> backpackItems = new ArrayList<>();
     private List<ItemResponse> equippedItems = new ArrayList<>();
 

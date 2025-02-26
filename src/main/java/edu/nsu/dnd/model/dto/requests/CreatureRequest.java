@@ -1,10 +1,9 @@
 package edu.nsu.dnd.model.dto.requests;
 
-import edu.nsu.dnd.model.dto.responses.ItemResponse;
 import edu.nsu.dnd.model.enums.*;
-import edu.nsu.dnd.model.persistent.Creature;
 import edu.nsu.dnd.model.persistent.embeddable.Abilities;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
+import edu.nsu.dnd.model.persistent.embeddable.Skills;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,8 +29,9 @@ public class CreatureRequest {
     private Size size;
     private Abilities abilities;
     private Race race;
+    private List<Skill> skills = new ArrayList<>();
     private List<Condition> conditions = new ArrayList<>();
-    private List<Long> idBackpackItems = new ArrayList<>();
-    private List<Long> idEquipmentItems = new ArrayList<>();
+    private List<Long> BackpackItemIds = new ArrayList<>();
+    private List<Long> EquippedItemIds = new ArrayList<>();
 
 }

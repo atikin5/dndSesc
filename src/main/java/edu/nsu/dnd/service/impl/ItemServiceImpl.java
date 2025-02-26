@@ -13,6 +13,7 @@ import edu.nsu.dnd.service.ItemService;
 import edu.nsu.dnd.service.LocationService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,6 +37,12 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<Item> getByCampaignId(Long campaignId) {
         return itemRepository.findByCampaignId(campaignId);
+    }
+
+    @Override
+    public List<Item> getUnusedItemsByCampaignId(Long campaignId) {
+        return itemRepository.findUnusedItemsByCampaignId(campaignId);
+
     }
 
     @Override

@@ -63,33 +63,8 @@ public class DndCharacterController {
         return new DndCharacterResponse(dndCharacterService.create(request));
     }
 
-    @PostMapping("/{id}/replace")
-    public DndCharacterResponse replace(@PathVariable Long id, @RequestBody Position position) {
-        return new DndCharacterResponse(dndCharacterService.move(id, position));
-    }
-
-    @PostMapping("/{id}/damage")
-    public DndCharacterResponse damage(@PathVariable Long id, @RequestBody DamageRequest damageRequest) {
-        return new DndCharacterResponse(dndCharacterService.damage(id, damageRequest));
-    }
-
-    @PostMapping("/{id}/heal")
-    public DndCharacterResponse heal(@PathVariable Long id, @RequestBody int healAmount) {
-        return new DndCharacterResponse(dndCharacterService.heal(id, healAmount));
-    }
-
-    @PostMapping("/{id}/resize")
-    public DndCharacterResponse resize(@PathVariable Long id, @RequestBody Size size) {
-        return new DndCharacterResponse(dndCharacterService.resize(id, size));
-    }
-
-    @PostMapping("/{id}/relocate/{locationId}")
-    public DndCharacterResponse relocate(@PathVariable Long id, @PathVariable Long locationId ) {
-        return new DndCharacterResponse(dndCharacterService.relocate(id, locationId));
-    }
-
-    @PostMapping("/{id}/skill-check")
-    public SkillCheckResponse skillCheck(@PathVariable Long id, @RequestBody SkillCheckRequest request) {
-        return dndCharacterService.skillCheck(id, request);
+    @PutMapping("/{id}")
+    public DndCharacterResponse update(@PathVariable Long id, @RequestBody DndCharacterRequest request) {
+        return new DndCharacterResponse(dndCharacterService.update(id,request));
     }
 }

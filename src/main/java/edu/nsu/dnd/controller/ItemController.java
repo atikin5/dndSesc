@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +29,16 @@ public class ItemController {
     @GetMapping("/campaign/{id}")
     public List<ItemResponse> getItemByCampaignId(@PathVariable Long id) {
         return itemService.getByCampaignId(id).stream().map(ItemResponse::new).collect(Collectors.toList());
+    }
+
+    @GetMapping("/campaign/unused/{id}")
+    public List<ItemResponse> getUnusedItemsByCampaignId(@PathVariable Long id) {
+        if (itemService.getUnusedItemsByCampaignId(id) != null) {
+            return itemService.getUnusedItemsByCampaignId(id).stream().map(ItemResponse::new).collect(Collectors.toList());
+
+        } else {
+            return new ArrayList<ItemResponse>();
+        }
     }
 
     @GetMapping("/location/{id}")

@@ -1,6 +1,12 @@
 package edu.nsu.dnd.model.enums;
 
 public enum Skill {
+    STRENGTH,
+    DEXTERITY,
+    CONSTITUTION,
+    INTELLIGENCE,
+    WISDOM,
+    CHARISMA,
     ATHLETICS,
     ACROBATICS,
     SLEIGHT_OF_HAND,

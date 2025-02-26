@@ -68,34 +68,4 @@ public class CreatureController {
         return new CreatureResponse(creatureService.create(request));
     }
 
-    @PostMapping("/{id}/replace")
-    public CreatureResponse replace(@PathVariable Long id, @RequestBody Position position) {
-        return new CreatureResponse(creatureService.replace(id, position));
-    }
-
-    @PostMapping("/{id}/damage")
-    public CreatureResponse damage(@PathVariable Long id, @RequestBody DamageRequest request) {
-        return new CreatureResponse(creatureService.damage(id, request));
-    }
-
-    @PostMapping("/{id}/heal")
-    public CreatureResponse heal(@PathVariable Long id, @RequestBody int healAmount) {
-        return new CreatureResponse(creatureService.heal(id, healAmount));
-    }
-
-    @PostMapping("/{id}/resize")
-    public CreatureResponse resize(@PathVariable Long id, @RequestBody Size size) {
-        return new CreatureResponse(creatureService.resize(id, size));
-    }
-
-    @PostMapping("/{id}/relocate/{locationId}")
-    public CreatureResponse relocate(@PathVariable Long id, @PathVariable Long locationId) {
-        return new CreatureResponse(creatureService.relocate(id, locationId));
-    }
-
-    @PostMapping("/{id}/skill-check")
-    public SkillCheckResponse skillCheck(@PathVariable Long id, @RequestBody SkillCheckRequest request) {
-        return creatureService.skillCheck(id, request);
-    }
-
 }
