@@ -66,8 +66,6 @@ public class CreatureServiceImpl implements CreatureService {
         else {
             creature.setLocation(null);
         }
-        creature.setType(request.getType());
-        creature.setPosition(request.getPosition());
         creature.setOperational(request.isOperational());
         creature.setCurrentHp(request.getCurrentHp());
         creature.setMaxHp(request.getMaxHp());
@@ -79,7 +77,7 @@ public class CreatureServiceImpl implements CreatureService {
         creature.setRace(request.getRace());
         creature.setConditions(request.getConditions());
         creature.setSkills(request.getSkills());
-        creature.setEquippedItems(new ArrayList<Item>());
+        creature.setEquippedItems(new ArrayList<>());
         for (Long idItemResponse : request.getEquippedItemIds()) {
             Item item = itemService.get(idItemResponse);
             if (item.equip(creature.getEquippedItems(), creature.getMaxItemPosition())) {
@@ -88,7 +86,7 @@ public class CreatureServiceImpl implements CreatureService {
                 throw new RuntimeException("Can't equip this items");
             }
         }
-        creature.setBackpackItems(new ArrayList<Item>());
+        creature.setBackpackItems(new ArrayList<>());
         for (Long idItemResponse : request.getBackpackItemIds()) {
             Item item = itemService.get(idItemResponse);
             creature.takeItem(item);
@@ -192,12 +190,8 @@ public class CreatureServiceImpl implements CreatureService {
     public Creature removeItem(Long id, Long itemId) {
         Creature creature = get(id);
         Item item = itemService.get(itemId);
-        if (creature.getBackpackItems().contains(item)) {
-            creature.getBackpackItems().remove(item);
-        }
-        if (creature.getEquippedItems().contains(item)) {
-            creature.getEquippedItems().remove(item);
-        }
+        creature.getBackpackItems().remove(item);
+        creature.getEquippedItems().remove(item);
         return creatureRepository.save(creature);
     }
 

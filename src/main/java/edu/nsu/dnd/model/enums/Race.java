@@ -10,5 +10,6 @@ public enum Race {
     HALFLING,
     HUMAN,
     ORC,
-    TIEFLING
+    TIEFLING,
+    BEAST
 }

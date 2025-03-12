@@ -37,7 +37,7 @@ public class ItemController {
             return itemService.getUnusedItemsByCampaignId(id).stream().map(ItemResponse::new).collect(Collectors.toList());
 
         } else {
-            return new ArrayList<ItemResponse>();
+            return new ArrayList<>();
         }
     }
 
