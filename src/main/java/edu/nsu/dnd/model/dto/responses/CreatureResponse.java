@@ -21,6 +21,7 @@ public class CreatureResponse {
     private Long id;
     private Long campaignId;
     private Long locationId;
+    private String locationName;
     private String type;
     private Position position;
     private boolean operational;
@@ -43,9 +44,11 @@ public class CreatureResponse {
         campaignId = creature.getCampaign().getId();
         if (creature.getLocation() != null) {
             locationId = creature.getLocation().getId();
+            locationName = creature.getLocation().getName();
         }
         else {
             locationId = null;
+            locationName = null;
         }
         type = creature.getType();
         position = creature.getPosition();

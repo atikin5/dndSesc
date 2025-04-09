@@ -52,6 +52,7 @@ public class ItemServiceImpl implements ItemService {
 
     private void fillFields(ItemRequest itemRequest, Item item) {
         item.setCampaign(campaignService.get(itemRequest.getCampaignId()));
+        item.setItemPosition(itemRequest.getItemPosition());
     }
 
     @Override
