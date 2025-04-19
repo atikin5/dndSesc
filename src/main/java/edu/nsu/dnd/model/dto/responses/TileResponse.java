@@ -14,11 +14,15 @@ public class TileResponse {
     private String type;
     private Position position;
     private Boolean visibleByCharacter;
+    private Boolean walkable;
+    private Boolean visible;
 
     public TileResponse(Tile tile) {
         id = tile.getId();
         type = tile.getType();
         position = tile.getPosition();
         visibleByCharacter = tile.getVisibleByCharacter();
+        walkable = tile.getWalkable();
+        visible = tile.getVisible();
     }
 }

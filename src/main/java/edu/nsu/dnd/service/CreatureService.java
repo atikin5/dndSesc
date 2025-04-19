@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface CreatureService {
 
-    Creature get(Long id) ;
+    Creature get(Long id);
 
     List<Creature> getPageByCampaignId(Long campaignId);
 

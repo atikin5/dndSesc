@@ -18,4 +18,6 @@ public class Tile extends LocationObject {
      * </ul>
      */
     private Boolean visibleByCharacter;
+    private Boolean walkable;
+    private Boolean visible;
 }

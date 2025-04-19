@@ -66,6 +66,7 @@ public class CreatureServiceImpl implements CreatureService {
         else {
             creature.setLocation(null);
         }
+        creature.setPosition(request.getPosition());
         creature.setOperational(request.isOperational());
         creature.setCurrentHp(request.getCurrentHp());
         creature.setMaxHp(request.getMaxHp());
