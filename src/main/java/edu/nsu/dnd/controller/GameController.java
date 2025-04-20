@@ -68,8 +68,8 @@ public class GameController {
     }
 
     @PostMapping("/creature/{id}/move")
-    public CreatureResponse moveCreature(@PathVariable Long id, @RequestBody List<Position> path) {
-        return new CreatureResponse(gameService.moveCreature(id, path));
+    public List<Position> moveCreature(@PathVariable Long id, @RequestBody List<Position> path) {
+        return gameService.moveCreature(id, path);
     }
 
     @PostMapping("/creature/{id}/skill_check")

@@ -34,7 +34,7 @@ public interface GameService {
     DndCharacter relocateCharacter(Long characterId, Long locationId);
 
 
-    Creature moveCreature(Long creatureId, List<Position> path);
+    List<Position> moveCreature(Long creatureId, List<Position> path);
 
     SkillCheckResponse skillCheckCreature(Long creatureId, SkillCheckRequest request);
 

@@ -5,13 +5,23 @@ import edu.nsu.dnd.model.dto.requests.HitRequest;
 import edu.nsu.dnd.model.dto.requests.SkillCheckRequest;
 import edu.nsu.dnd.model.dto.responses.SkillCheckResponse;
 import edu.nsu.dnd.model.enums.Target;
-import edu.nsu.dnd.model.persistent.*;
+import edu.nsu.dnd.model.persistent.Creature;
+import edu.nsu.dnd.model.persistent.DestructibleObject;
+import edu.nsu.dnd.model.persistent.DndCharacter;
+import edu.nsu.dnd.model.persistent.Item;
+import edu.nsu.dnd.model.persistent.Location;
 import edu.nsu.dnd.model.persistent.embeddable.Position;
 import edu.nsu.dnd.repository.CreatureRepository;
 import edu.nsu.dnd.repository.DestructibleObjectRepository;
 import edu.nsu.dnd.repository.DndCharacterRepository;
 import edu.nsu.dnd.repository.ItemRepository;
-import edu.nsu.dnd.service.*;
+import edu.nsu.dnd.service.CreatureService;
+import edu.nsu.dnd.service.DestructibleObjectService;
+import edu.nsu.dnd.service.DndCharacterService;
+import edu.nsu.dnd.service.GameService;
+import edu.nsu.dnd.service.ItemService;
+import edu.nsu.dnd.service.LocationService;
+import edu.nsu.dnd.service.WebSocketMessagingService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +56,9 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public DndCharacter moveCharacter(Long characterId, List<Position> path) {
-        path.forEach((position) -> {dndCharacterService.move(characterId, position);});
+        path.forEach((position) -> {
+            dndCharacterService.move(characterId, position);
+        });
         return dndCharacterService.get(characterId);
     }
 
@@ -103,9 +115,17 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Creature moveCreature(Long creatureId, List<Position> path) {
-        path.forEach((position) -> {creatureService.replace(creatureId, position);});
-        return creatureService.get(creatureId);
+    public List<Position> moveCreature(Long creatureId, List<Position> path) {
+        for (int i = 1; i < path.size(); i++) {
+            Position newPosition = path.get(i);
+            Position oldPosition = path.get(i - 1);
+            if (Math.abs(newPosition.getX() - oldPosition.getX()) < 2 && Math.abs(newPosition.getY() - oldPosition.getY()) < 2) {
+            }
+        }
+        Creature creature = creatureService.get(creatureId);
+        creature.setPosition(path.getLast());
+        webSocketMessagingService.sendMessage(creature.getLocation().getId().toString(), path);
+        return path;
     }
 
     @Override
@@ -161,7 +181,9 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public DestructibleObject moveDestructibleObject(Long destructibleObjectId, List<Position> path) {
-        path.forEach(position -> {destructibleObjectService.move(destructibleObjectId, position);});
+        path.forEach(position -> {
+            destructibleObjectService.move(destructibleObjectId, position);
+        });
         return destructibleObjectService.get(destructibleObjectId);
     }
 
@@ -181,7 +203,9 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public Item moveItem(Long itemId, List<Position> path) {
-        path.forEach(position -> {itemService.move(itemId, position);});
+        path.forEach(position -> {
+            itemService.move(itemId, position);
+        });
         return itemService.get(itemId);
     }
 

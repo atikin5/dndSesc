@@ -11,3 +11,7 @@ spring:
   jpa:
     generate-ddl: on
     show-sql: true
+
+logging:
+  level:
+    edu.nsu.dnd: DEBUG
